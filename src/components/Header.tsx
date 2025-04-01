@@ -7,7 +7,7 @@ import {
   Brain, 
   Cpu, 
   BotIcon, 
-  VrHeadset, 
+  Headset, 
   ChevronDown, 
   Menu, 
   X, 
@@ -32,7 +32,7 @@ const Header = ({ onCategoryChange, currentCategory }: HeaderProps) => {
     { category: 'ai', label: 'AI', icon: <Brain className="h-4 w-4" /> },
     { category: 'hardware', label: 'Hardware', icon: <Cpu className="h-4 w-4" /> },
     { category: 'robotics', label: 'Robotics', icon: <BotIcon className="h-4 w-4" /> },
-    { category: 'vrar', label: 'VR/AR', icon: <VrHeadset className="h-4 w-4" /> },
+    { category: 'vrar', label: 'VR/AR', icon: <Headset className="h-4 w-4" /> },
   ];
 
   const categoryInfo: CategoryInfo = getCategoryInfo(currentCategory);
