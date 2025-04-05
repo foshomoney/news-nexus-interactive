@@ -87,6 +87,16 @@ export const feedSources: FeedSource[] = [
   }
 ];
 
+// Function to shuffle an array randomly
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
 // Mock articles data (as fallback if RSS fetching fails)
 const mockArticles: Article[] = [
   {
@@ -190,8 +200,11 @@ export const fetchRssFeeds = async (category: Category = 'all'): Promise<Article
       ? feedSources 
       : feedSources.filter(feed => feed.category === category || feed.category === 'all');
     
+    // Shuffle the feeds to randomize which ones we fetch
+    const shuffledFeeds = shuffleArray(feedsToFetch);
+    
     // Limit to 4 feeds to avoid overwhelming the service
-    const limitedFeeds = feedsToFetch.slice(0, 4);
+    const limitedFeeds = shuffledFeeds.slice(0, 4);
     
     // Fetch feeds concurrently
     const feedPromises = limitedFeeds.map(async (feed) => {
@@ -329,7 +342,8 @@ export const fetchFeaturedArticles = async (): Promise<Article[]> => {
     
     // If we got articles, return 4 featured ones
     if (rssArticles.length > 0) {
-      return rssArticles.slice(0, 4);
+      // Randomize the order to get different featured articles each time
+      return shuffleArray(rssArticles).slice(0, 4);
     }
     
     // Otherwise fall back to mock data
