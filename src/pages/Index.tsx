@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import NewsCarousel from '@/components/NewsCarousel';
 import NewsGrid from '@/components/NewsGrid';
 import Footer from '@/components/Footer';
+import { toast } from "@/components/ui/use-toast";
 
 const Index = () => {
   const [featuredArticles, setFeaturedArticles] = useState<Article[]>([]);
@@ -18,8 +19,19 @@ const Index = () => {
       try {
         const data = await fetchFeaturedArticles();
         setFeaturedArticles(data);
+        toast({
+          title: "RSS Feeds Loaded",
+          description: "Latest articles have been fetched from RSS feeds.",
+          duration: 3000,
+        });
       } catch (error) {
         console.error('Error fetching featured articles:', error);
+        toast({
+          title: "Error Loading RSS Feeds",
+          description: "There was an issue fetching the latest articles. Using fallback content.",
+          variant: "destructive",
+          duration: 5000,
+        });
       } finally {
         setLoading(false);
       }
@@ -57,7 +69,8 @@ const Index = () => {
       
       <Header 
         onCategoryChange={handleCategoryChange} 
-        currentCategory={currentCategory} 
+        currentCategory={currentCategory}
+        isLoading={loading}
       />
       
       <main className="flex-1">
@@ -71,7 +84,10 @@ const Index = () => {
         </section>
         
         {/* News Grid */}
-        <NewsGrid currentCategory={currentCategory} />
+        <NewsGrid 
+          currentCategory={currentCategory} 
+          onLoadingChange={(isLoading) => setLoading(isLoading)} 
+        />
       </main>
       
       <Footer />

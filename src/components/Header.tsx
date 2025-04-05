@@ -11,7 +11,8 @@ import {
   ChevronDown, 
   Menu, 
   X, 
-  Search 
+  Search,
+  Rss
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -23,9 +24,10 @@ import {
 interface HeaderProps {
   onCategoryChange: (category: Category) => void;
   currentCategory: Category;
+  isLoading?: boolean;
 }
 
-const Header = ({ onCategoryChange, currentCategory }: HeaderProps) => {
+const Header = ({ onCategoryChange, currentCategory, isLoading = false }: HeaderProps) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const categories: { category: Category; label: string; icon: JSX.Element }[] = [
@@ -44,8 +46,8 @@ const Header = ({ onCategoryChange, currentCategory }: HeaderProps) => {
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <h1 className="text-2xl font-bold bg-clip-text text-transparent tech-gradient">
-                TechNexus
+              <h1 className="text-2xl font-bold bg-clip-text text-transparent tech-gradient flex items-center">
+                TechNexus <Rss className="ml-2 h-4 w-4 text-primary" />
               </h1>
             </div>
             
@@ -53,9 +55,13 @@ const Header = ({ onCategoryChange, currentCategory }: HeaderProps) => {
             <nav className="hidden md:flex items-center space-x-1">
               <Button 
                 variant="ghost" 
-                className={currentCategory === 'all' ? 'bg-muted text-white' : 'text-muted-foreground'} 
+                className={`${currentCategory === 'all' ? 'bg-muted text-white' : 'text-muted-foreground'} ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}
                 onClick={() => onCategoryChange('all')}
+                disabled={isLoading}
               >
+                {isLoading && currentCategory === 'all' ? (
+                  <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent"></span>
+                ) : null}
                 All News
               </Button>
               
@@ -64,10 +70,13 @@ const Header = ({ onCategoryChange, currentCategory }: HeaderProps) => {
                   <DropdownMenuTrigger asChild>
                     <Button 
                       variant="ghost" 
-                      className={`flex items-center ${currentCategory === category ? 'bg-muted text-white' : 'text-muted-foreground'}`}
+                      className={`flex items-center ${currentCategory === category ? 'bg-muted text-white' : 'text-muted-foreground'} ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}
+                      disabled={isLoading}
                     >
                       <span className="flex items-center">
-                        {icon}
+                        {isLoading && currentCategory === category ? (
+                          <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent"></span>
+                        ) : icon}
                         <span className="ml-1">{label}</span>
                       </span>
                       <ChevronDown className="ml-1 h-4 w-4" />
@@ -105,12 +114,16 @@ const Header = ({ onCategoryChange, currentCategory }: HeaderProps) => {
             <nav className="md:hidden pt-4 pb-2 animate-fade-in">
               <Button 
                 variant="ghost" 
-                className={`w-full justify-start mb-2 ${currentCategory === 'all' ? 'bg-muted' : ''}`}
+                className={`w-full justify-start mb-2 ${currentCategory === 'all' ? 'bg-muted' : ''} ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}
                 onClick={() => {
                   onCategoryChange('all');
                   setMobileMenuOpen(false);
                 }}
+                disabled={isLoading}
               >
+                {isLoading && currentCategory === 'all' ? (
+                  <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent"></span>
+                ) : null}
                 All News
               </Button>
               
@@ -118,14 +131,17 @@ const Header = ({ onCategoryChange, currentCategory }: HeaderProps) => {
                 <Button 
                   key={category}
                   variant="ghost" 
-                  className={`w-full justify-start mb-2 ${currentCategory === category ? 'bg-muted' : ''}`}
+                  className={`w-full justify-start mb-2 ${currentCategory === category ? 'bg-muted' : ''} ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}
                   onClick={() => {
                     onCategoryChange(category);
                     setMobileMenuOpen(false);
                   }}
+                  disabled={isLoading}
                 >
                   <span className="flex items-center">
-                    {icon}
+                    {isLoading && currentCategory === category ? (
+                      <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent"></span>
+                    ) : icon}
                     <span className="ml-2">{label}</span>
                   </span>
                 </Button>
@@ -143,8 +159,11 @@ const Header = ({ onCategoryChange, currentCategory }: HeaderProps) => {
       {/* Category header */}
       <div className="bg-muted py-3">
         <div className="container mx-auto px-4">
-          <h2 className="text-xl font-bold">
+          <h2 className="text-xl font-bold flex items-center">
             {categoryInfo.label}
+            {isLoading && (
+              <span className="ml-3 h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent"></span>
+            )}
           </h2>
           <p className="text-sm text-muted-foreground">
             {categoryInfo.description}

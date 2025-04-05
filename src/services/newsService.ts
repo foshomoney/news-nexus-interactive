@@ -1,35 +1,93 @@
-
 import { Article, Category, FeedSource } from '../types/news';
 
-// Mock RSS feed sources
-const feedSources: FeedSource[] = [
+// RSS feed sources
+export const feedSources: FeedSource[] = [
+  // General Technology News
   {
-    id: '1',
-    name: 'MIT Technology Review',
-    url: 'https://www.technologyreview.com/feed/',
-    category: 'ai'
+    id: 'techcrunch',
+    name: 'TechCrunch',
+    url: 'https://techcrunch.com/feed/',
+    category: 'all'
   },
   {
-    id: '2',
-    name: 'Wired',
-    url: 'https://www.wired.com/feed/rss',
+    id: 'techdirt',
+    name: 'Techdirt',
+    url: 'https://feeds.feedburner.com/techdirt/feed',
+    category: 'all'
+  },
+  {
+    id: 'techengage',
+    name: 'TechEngage',
+    url: 'https://techengage.com/feed',
+    category: 'all'
+  },
+  {
+    id: 'techgliding',
+    name: 'TechGliding',
+    url: 'https://www.techgliding.com/feeds/posts/default?alt=rss',
+    category: 'all'
+  },
+  // Specialized Technology News
+  {
+    id: 'zdnet',
+    name: 'ZDNet',
+    url: 'https://www.zdnet.com/news/rss.xml',
     category: 'hardware'
   },
   {
-    id: '3',
-    name: 'IEEE Spectrum',
-    url: 'https://spectrum.ieee.org/rss',
-    category: 'robotics'
+    id: 'androidcentral',
+    name: 'Android Central',
+    url: 'https://www.androidcentral.com/rss.xml',
+    category: 'hardware'
   },
   {
-    id: '4',
-    name: 'Road to VR',
-    url: 'https://www.roadtovr.com/feed/',
+    id: 'macworld',
+    name: 'Macworld',
+    url: 'https://www.macworld.com/index.rss',
+    category: 'hardware'
+  },
+  {
+    id: 'fossbytes',
+    name: 'Fossbytes',
+    url: 'https://fossbytes.com/feed/?x=1',
+    category: 'all'
+  },
+  // Emerging Technologies
+  {
+    id: 'siliconangle',
+    name: 'SiliconANGLE',
+    url: 'https://siliconangle.com/feed/',
+    category: 'ai'
+  },
+  {
+    id: 'siliconrepublic',
+    name: 'Silicon Republic',
+    url: 'https://www.siliconrepublic.com/feed',
+    category: 'ai'
+  },
+  // Higher Education Technology
+  {
+    id: 'campustechnology',
+    name: 'Campus Technology',
+    url: 'https://campustechnology.com/rss-feeds/rss-list.aspx',
+    category: 'robotics'
+  },
+  // Other Notable Feeds
+  {
+    id: 'techwrix',
+    name: 'Techwrix',
+    url: 'https://techwrix.com/feed',
+    category: 'all'
+  },
+  {
+    id: 'wired',
+    name: 'Wired',
+    url: 'https://www.wired.com/feed/rss',
     category: 'vrar'
   }
 ];
 
-// Mock articles data (in a real app, this would come from RSS feed parsing)
+// Mock articles data (as fallback if RSS fetching fails)
 const mockArticles: Article[] = [
   {
     id: '1',
@@ -121,24 +179,172 @@ const mockArticles: Article[] = [
   }
 ];
 
+// Function to parse RSS feeds
+export const fetchRssFeeds = async (category: Category = 'all'): Promise<Article[]> => {
+  try {
+    // Using a CORS proxy to avoid cross-origin issues
+    const corsProxy = 'https://api.allorigins.win/raw?url=';
+    
+    // Determine which feeds to fetch based on category
+    const feedsToFetch = category === 'all' 
+      ? feedSources 
+      : feedSources.filter(feed => feed.category === category || feed.category === 'all');
+    
+    // Limit to 4 feeds to avoid overwhelming the service
+    const limitedFeeds = feedsToFetch.slice(0, 4);
+    
+    // Fetch feeds concurrently
+    const feedPromises = limitedFeeds.map(async (feed) => {
+      try {
+        const response = await fetch(`${corsProxy}${encodeURIComponent(feed.url)}`);
+        
+        if (!response.ok) {
+          console.error(`Failed to fetch ${feed.name}: ${response.status}`);
+          return [];
+        }
+        
+        const xmlText = await response.text();
+        
+        // Parse XML
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+        
+        // Extract items (may vary depending on RSS format)
+        const items = Array.from(xmlDoc.querySelectorAll('item'));
+        
+        return items.map((item, index) => {
+          // Extract content (handling different RSS formats)
+          const title = item.querySelector('title')?.textContent || 'Untitled';
+          const link = item.querySelector('link')?.textContent || '#';
+          
+          // Try different content tags that might exist
+          const content = 
+            item.querySelector('content\\:encoded')?.textContent || 
+            item.querySelector('description')?.textContent ||
+            item.querySelector('summary')?.textContent || '';
+          
+          // Extract the first paragraph as summary
+          const summary = content
+            .replace(/<\/?[^>]+(>|$)/g, '') // Remove HTML tags
+            .split('.')[0] + '.'; // Get first sentence
+          
+          // Try to find image in content
+          let imageUrl = 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b'; // Default image
+          
+          // Look for media:content or enclosure tags for images
+          const mediaContent = item.querySelector('media\\:content, enclosure');
+          if (mediaContent && mediaContent.getAttribute('url')) {
+            imageUrl = mediaContent.getAttribute('url') || imageUrl;
+          } else {
+            // Try to extract image from content HTML if exists
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = content;
+            const img = tempDiv.querySelector('img');
+            if (img && img.src) {
+              imageUrl = img.src;
+            }
+          }
+          
+          // Get published date
+          const pubDate = item.querySelector('pubDate')?.textContent || 
+                         item.querySelector('dc\\:date')?.textContent || 
+                         new Date().toUTCString();
+          
+          // Format date
+          const publishDate = new Date(pubDate).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
+          
+          return {
+            id: `${feed.id}-${index}`,
+            title,
+            summary,
+            content,
+            imageUrl,
+            sourceUrl: link,
+            sourceName: feed.name,
+            publishDate,
+            category: feed.category as Category
+          };
+        });
+      } catch (error) {
+        console.error(`Error fetching RSS feed for ${feed.name}:`, error);
+        return [];
+      }
+    });
+    
+    // Wait for all feeds to be fetched and parsed
+    const allArticles = await Promise.all(feedPromises);
+    
+    // Flatten array and sort by publish date (newest first)
+    return allArticles
+      .flat()
+      .sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime())
+      .slice(0, 20); // Limit to 20 articles
+  } catch (error) {
+    console.error('Error fetching RSS feeds:', error);
+    // Fall back to mock articles
+    return fetchArticles(category);
+  }
+};
+
 // In a real implementation, this would fetch and parse RSS feeds
 export const fetchArticles = async (category: Category = 'all'): Promise<Article[]> => {
-  // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 500));
-  
-  if (category === 'all') {
-    return mockArticles;
+  try {
+    // First try to fetch real RSS feeds
+    const rssArticles = await fetchRssFeeds(category);
+    
+    // If we got articles, return them
+    if (rssArticles.length > 0) {
+      return rssArticles;
+    }
+    
+    // Otherwise fall back to mock data
+    console.log('Falling back to mock articles');
+    
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    if (category === 'all') {
+      return mockArticles;
+    }
+    
+    return mockArticles.filter(article => article.category === category);
+  } catch (error) {
+    console.error('Error in fetchArticles:', error);
+    // Final fallback to mock articles
+    if (category === 'all') {
+      return mockArticles;
+    }
+    return mockArticles.filter(article => article.category === category);
   }
-  
-  return mockArticles.filter(article => article.category === category);
 };
 
 export const fetchFeaturedArticles = async (): Promise<Article[]> => {
-  // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 300));
-  
-  // Return first 4 articles as featured
-  return mockArticles.slice(0, 4);
+  try {
+    // Try to get real articles first
+    const rssArticles = await fetchRssFeeds();
+    
+    // If we got articles, return 4 featured ones
+    if (rssArticles.length > 0) {
+      return rssArticles.slice(0, 4);
+    }
+    
+    // Otherwise fall back to mock data
+    console.log('Falling back to mock featured articles');
+    
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 300));
+    
+    // Return first 4 articles as featured
+    return mockArticles.slice(0, 4);
+  } catch (error) {
+    console.error('Error in fetchFeaturedArticles:', error);
+    // Final fallback
+    return mockArticles.slice(0, 4);
+  }
 };
 
 export const fetchArticleById = async (id: string): Promise<Article | undefined> => {
