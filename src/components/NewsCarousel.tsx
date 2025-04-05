@@ -1,10 +1,11 @@
 
 import { useState, useEffect } from 'react';
 import { Article } from '@/types/news';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { getCategoryInfo } from '@/services/newsService';
+import { Link } from 'react-router-dom';
 
 interface NewsCarouselProps {
   articles: Article[];
@@ -81,14 +82,26 @@ const NewsCarousel = ({ articles }: NewsCarouselProps) => {
                       <span className="mx-2">•</span>
                       <span>{article.publishDate}</span>
                     </div>
-                    <Button 
-                      variant="default" 
-                      size="sm"
-                      className="bg-white text-background hover:bg-gray-200"
-                      onClick={() => window.open(article.sourceUrl, '_blank')}
-                    >
-                      Read More
-                    </Button>
+                    <div className="flex gap-2">
+                      <Button
+                        variant="default"
+                        size="sm"
+                        className="bg-white text-background hover:bg-gray-200"
+                        asChild
+                      >
+                        <Link to={`/article/${article.id}`}>
+                          Read Article
+                        </Link>
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="bg-transparent border-white text-white hover:bg-white/10"
+                        onClick={() => window.open(article.sourceUrl, '_blank')}
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>

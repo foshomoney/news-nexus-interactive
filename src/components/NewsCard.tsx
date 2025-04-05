@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { ExternalLink, Rss } from 'lucide-react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 interface NewsCardProps {
   article: Article;
@@ -37,7 +38,7 @@ const NewsCard = ({ article }: NewsCardProps) => {
   
   return (
     <Card className="overflow-hidden card-hover h-full flex flex-col">
-      <div className="relative h-48 overflow-hidden">
+      <Link to={`/article/${article.id}`} className="relative h-48 overflow-hidden">
         <img 
           src={imageError ? getPlaceholderImage() : article.imageUrl} 
           alt={article.title} 
@@ -56,9 +57,11 @@ const NewsCard = ({ article }: NewsCardProps) => {
         <div className="absolute top-2 right-2 bg-black/70 rounded-full p-1">
           <Rss className="h-4 w-4 text-white" />
         </div>
-      </div>
+      </Link>
       <CardContent className="pt-4 pb-2 flex-grow">
-        <h3 className="text-xl font-semibold mb-2 line-clamp-2">{article.title}</h3>
+        <Link to={`/article/${article.id}`} className="hover:text-primary transition-colors">
+          <h3 className="text-xl font-semibold mb-2 line-clamp-2">{article.title}</h3>
+        </Link>
         <p className="text-sm text-muted-foreground line-clamp-3">
           {article.summary}
         </p>
@@ -68,14 +71,22 @@ const NewsCard = ({ article }: NewsCardProps) => {
           <span className="font-medium">{article.sourceName}</span>
           <span className="text-xs opacity-75">{article.publishDate}</span>
         </div>
-        <a 
-          href={article.sourceUrl} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="flex items-center hover:text-primary transition-colors"
-        >
-          Read more <ExternalLink className="h-3 w-3 ml-1" />
-        </a>
+        <div className="flex gap-2">
+          <Link
+            to={`/article/${article.id}`}
+            className="flex items-center hover:text-primary transition-colors"
+          >
+            Read more
+          </Link>
+          <a 
+            href={article.sourceUrl} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex items-center hover:text-primary transition-colors"
+          >
+            <ExternalLink className="h-3 w-3" />
+          </a>
+        </div>
       </CardFooter>
     </Card>
   );

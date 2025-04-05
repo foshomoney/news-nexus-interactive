@@ -362,10 +362,21 @@ export const fetchFeaturedArticles = async (): Promise<Article[]> => {
 };
 
 export const fetchArticleById = async (id: string): Promise<Article | undefined> => {
-  // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 200));
-  
-  return mockArticles.find(article => article.id === id);
+  try {
+    // First try to find the article in our mock articles
+    const mockArticle = mockArticles.find(article => article.id === id);
+    if (mockArticle) {
+      return mockArticle;
+    }
+    
+    // If not found in mock articles, get all articles from RSS feeds
+    const allArticles = await fetchRssFeeds('all');
+    return allArticles.find(article => article.id === id);
+  } catch (error) {
+    console.error('Error fetching article by ID:', error);
+    // Final fallback to mock articles
+    return mockArticles.find(article => article.id === id);
+  }
 };
 
 export const getCategoryInfo = (category: Category) => {
