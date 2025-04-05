@@ -1,3 +1,4 @@
+
 import { Article, Category, FeedSource } from '../types/news';
 
 // RSS feed sources
@@ -192,7 +193,7 @@ const mockArticles: Article[] = [
 // Function to parse RSS feeds
 export const fetchRssFeeds = async (category: Category = 'all'): Promise<Article[]> => {
   try {
-    // Using a CORS proxy to avoid cross-origin issues
+    // Using a more reliable CORS proxy
     const corsProxy = 'https://api.allorigins.win/raw?url=';
     
     // Determine which feeds to fetch based on category
@@ -206,10 +207,20 @@ export const fetchRssFeeds = async (category: Category = 'all'): Promise<Article
     // Limit to 4 feeds to avoid overwhelming the service
     const limitedFeeds = shuffledFeeds.slice(0, 4);
     
-    // Fetch feeds concurrently
+    console.log('Fetching RSS feeds:', limitedFeeds.map(f => f.name));
+    
+    // Fetch feeds concurrently with timeout
     const feedPromises = limitedFeeds.map(async (feed) => {
       try {
-        const response = await fetch(`${corsProxy}${encodeURIComponent(feed.url)}`);
+        // Add timeout to avoid hanging requests
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+        
+        const response = await fetch(`${corsProxy}${encodeURIComponent(feed.url)}`, {
+          signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
         
         if (!response.ok) {
           console.error(`Failed to fetch ${feed.name}: ${response.status}`);
@@ -218,9 +229,16 @@ export const fetchRssFeeds = async (category: Category = 'all'): Promise<Article
         
         const xmlText = await response.text();
         
-        // Parse XML
+        // Parse XML safely
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+        
+        // Check if parsing failed
+        const parserError = xmlDoc.querySelector('parsererror');
+        if (parserError) {
+          console.error(`XML parsing error for ${feed.name}:`, parserError.textContent);
+          return [];
+        }
         
         // Extract items (may vary depending on RSS format)
         const items = Array.from(xmlDoc.querySelectorAll('item'));
@@ -231,10 +249,13 @@ export const fetchRssFeeds = async (category: Category = 'all'): Promise<Article
           const link = item.querySelector('link')?.textContent || '#';
           
           // Try different content tags that might exist
-          const content = 
+          let content = 
             item.querySelector('content\\:encoded')?.textContent || 
             item.querySelector('description')?.textContent ||
             item.querySelector('summary')?.textContent || '';
+          
+          // Clean content - remove CDATA sections if present
+          content = content.replace(/<!\[CDATA\[(.*?)\]\]>/gs, '$1');
           
           // Extract the first paragraph as summary
           const summary = content
@@ -264,17 +285,26 @@ export const fetchRssFeeds = async (category: Category = 'all'): Promise<Article
                          new Date().toUTCString();
           
           // Format date
-          const publishDate = new Date(pubDate).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          });
+          let publishDate;
+          try {
+            publishDate = new Date(pubDate).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            });
+          } catch (e) {
+            publishDate = new Date().toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            });
+          }
           
           return {
             id: `${feed.id}-${index}`,
             title,
             summary,
-            content,
+            content: sanitizeHtml(content),
             imageUrl,
             sourceUrl: link,
             sourceName: feed.name,
@@ -302,6 +332,24 @@ export const fetchRssFeeds = async (category: Category = 'all'): Promise<Article
     return fetchArticles(category);
   }
 };
+
+// Helper function to sanitize HTML content
+function sanitizeHtml(html: string): string {
+  // Basic sanitization to prevent most common issues
+  let sanitized = html
+    // Fix unclosed tags
+    .replace(/<(img|br|hr|input|meta|link|param|area|base|col|embed|keygen|source|track|wbr)([^>]*[^\/])>/gi, '<$1$2 />')
+    // Remove scripts
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    // Remove iframes
+    .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '')
+    // Remove style tags
+    .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
+    // Remove event handlers
+    .replace(/on\w+="[^"]*"/gi, '');
+  
+  return sanitized;
+}
 
 // In a real implementation, this would fetch and parse RSS feeds
 export const fetchArticles = async (category: Category = 'all'): Promise<Article[]> => {

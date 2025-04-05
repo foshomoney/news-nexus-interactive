@@ -60,6 +60,20 @@ const ArticleDetail = () => {
     </div>
   );
   
+  // Function to safely render HTML content
+  const renderArticleContent = () => {
+    if (!article?.content) return <p className="text-lg">{article?.summary}</p>;
+    
+    return (
+      <div 
+        className="prose prose-lg max-w-none dark:prose-invert"
+        dangerouslySetInnerHTML={{ 
+          __html: article.content 
+        }} 
+      />
+    );
+  };
+  
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col">
@@ -149,13 +163,27 @@ const ArticleDetail = () => {
           </div>
         )}
         
-        <div className="prose prose-lg max-w-none dark:prose-invert">
-          {/* Render the article content */}
-          {article.content ? (
-            <div dangerouslySetInnerHTML={{ __html: article.content }} />
-          ) : (
-            <p className="text-lg">{article.summary}</p>
-          )}
+        <div className="prose-container bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm mb-8">
+          {renderArticleContent()}
+        </div>
+        
+        <div className="flex justify-between mt-8">
+          <Button
+            variant="outline"
+            onClick={() => navigate(-1)}
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" /> Back to articles
+          </Button>
+          
+          <a 
+            href={article.sourceUrl} 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            <Button>
+              Read original <ExternalLink className="h-4 w-4 ml-2" />
+            </Button>
+          </a>
         </div>
       </main>
       <Footer />
