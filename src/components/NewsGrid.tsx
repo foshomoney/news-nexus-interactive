@@ -5,6 +5,7 @@ import { fetchArticles } from '@/services/newsService';
 import NewsCard from './NewsCard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { toast } from "@/components/ui/use-toast";
 
 interface NewsGridProps {
   currentCategory: Category;
@@ -26,12 +27,27 @@ const NewsGrid = ({ currentCategory, onLoadingChange }: NewsGridProps) => {
       }
       
       try {
+        // The fetchArticles now uses caching for better performance
         const data = await fetchArticles(currentCategory);
         setArticles(data);
         // Reset to first page when category changes
         setCurrentPage(1);
+        
+        // Show toast only when real articles are loaded (not cached)
+        if (data.length > 0) {
+          toast({
+            title: "Articles updated",
+            description: `Latest ${currentCategory === 'all' ? '' : currentCategory} articles loaded successfully.`,
+            duration: 2000,
+          });
+        }
       } catch (error) {
         console.error('Error fetching articles:', error);
+        toast({
+          title: "Error loading articles",
+          description: "There was a problem fetching the latest articles.",
+          variant: "destructive",
+        });
       } finally {
         setLoading(false);
         if (onLoadingChange) {
@@ -72,6 +88,11 @@ const NewsGrid = ({ currentCategory, onLoadingChange }: NewsGridProps) => {
     });
   };
   
+  // Animated background for skeleton loading state
+  const SkeletonBackground = () => (
+    <div className="absolute inset-0 animate-shimmer"></div>
+  );
+  
   return (
     <div className="container mx-auto px-4 py-8" id="news-grid-top">
       <Tabs defaultValue="latest" value={activeTab} onValueChange={(value) => setActiveTab(value as 'latest' | 'popular')}>
@@ -87,7 +108,9 @@ const NewsGrid = ({ currentCategory, onLoadingChange }: NewsGridProps) => {
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[...Array(6)].map((_, index) => (
-                <div key={index} className="h-64 bg-muted animate-pulse rounded-md" />
+                <div key={index} className="h-96 bg-muted/20 animate-pulse-soft relative overflow-hidden rounded-lg">
+                  <SkeletonBackground />
+                </div>
               ))}
             </div>
           ) : (
@@ -136,7 +159,9 @@ const NewsGrid = ({ currentCategory, onLoadingChange }: NewsGridProps) => {
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[...Array(6)].map((_, index) => (
-                <div key={index} className="h-64 bg-muted animate-pulse rounded-md" />
+                <div key={index} className="h-96 bg-muted/20 animate-pulse-soft relative overflow-hidden rounded-lg">
+                  <SkeletonBackground />
+                </div>
               ))}
             </div>
           ) : (

@@ -50,13 +50,25 @@ const ArticleDetail = () => {
     loadArticle();
   }, [id, navigate]);
   
-  // Background elements (same as in Index.tsx for consistency)
+  // Background elements with enhanced animations
   const BackgroundElements = () => (
     <div className="fixed inset-0 -z-10 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted"></div>
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-tech-ai/5 blur-3xl"></div>
-      <div className="absolute bottom-1/3 right-1/3 w-64 h-64 rounded-full bg-tech-robotics/5 blur-3xl"></div>
-      <div className="absolute top-2/3 left-1/2 w-80 h-80 rounded-full bg-tech-hardware/5 blur-3xl"></div>
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-tech-ai/5 blur-3xl animate-pulse-soft"></div>
+      <div className="absolute bottom-1/3 right-1/3 w-64 h-64 rounded-full bg-tech-robotics/5 blur-3xl animate-pulse-soft" style={{ animationDuration: '4s', animationDelay: '1s' }}></div>
+      <div className="absolute top-2/3 left-1/2 w-80 h-80 rounded-full bg-tech-hardware/5 blur-3xl animate-pulse-soft" style={{ animationDuration: '5s', animationDelay: '0.5s' }}></div>
+      
+      {/* Additional animated elements */}
+      <div className="absolute top-1/6 right-1/3 w-48 h-48 rounded-full bg-tech-vrar/5 blur-3xl animate-pulse-soft" style={{ animationDuration: '3s' }}></div>
+      <div className="absolute bottom-1/5 left-1/4 w-56 h-56 rounded-full bg-tech-ai/5 blur-3xl animate-pulse-soft" style={{ animationDuration: '6s', animationDelay: '1.5s' }}></div>
+      
+      {/* Fast floating particles */}
+      <div className="absolute top-10 right-1/4 w-4 h-4 rounded-full bg-tech-ai/20 animate-float" style={{ animationDuration: '3s' }}></div>
+      <div className="absolute top-1/3 left-10 w-6 h-6 rounded-full bg-tech-hardware/20 animate-float" style={{ animationDuration: '2.5s', animationDelay: '0.5s' }}></div>
+      <div className="absolute bottom-1/4 right-10 w-8 h-8 rounded-full bg-tech-robotics/20 animate-float" style={{ animationDuration: '2s', animationDelay: '1s' }}></div>
+      <div className="absolute bottom-10 left-1/4 w-5 h-5 rounded-full bg-tech-vrar/20 animate-float" style={{ animationDuration: '2.8s', animationDelay: '1.5s' }}></div>
+      <div className="absolute top-2/5 right-1/5 w-7 h-7 rounded-full bg-tech-ai/20 animate-float" style={{ animationDuration: '3.2s', animationDelay: '0.7s' }}></div>
+      <div className="absolute bottom-2/5 left-1/6 w-4 h-4 rounded-full bg-tech-hardware/20 animate-float" style={{ animationDuration: '2.3s', animationDelay: '1.2s' }}></div>
     </div>
   );
   
@@ -64,13 +76,20 @@ const ArticleDetail = () => {
   const renderArticleContent = () => {
     if (!article?.content) return <p className="text-lg">{article?.summary}</p>;
     
+    // If content is very short, it's likely not properly parsed
+    if (article.content.length < 100 && article.summary) {
+      return (
+        <div className="space-y-4">
+          <p className="text-lg font-medium">{article.summary}</p>
+          <div className="prose prose-lg max-w-none dark:prose-invert"
+            dangerouslySetInnerHTML={{ __html: article.content }} />
+        </div>
+      );
+    }
+    
     return (
-      <div 
-        className="prose prose-lg max-w-none dark:prose-invert"
-        dangerouslySetInnerHTML={{ 
-          __html: article.content 
-        }} 
-      />
+      <div className="prose prose-lg max-w-none dark:prose-invert"
+        dangerouslySetInnerHTML={{ __html: article.content }} />
     );
   };
   

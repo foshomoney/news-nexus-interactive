@@ -1,7 +1,6 @@
-
 import { Article, Category, FeedSource } from '../types/news';
 
-// RSS feed sources
+// RSS feed sources (expanded with many more reliable sources)
 export const feedSources: FeedSource[] = [
   // General Technology News
   {
@@ -28,7 +27,43 @@ export const feedSources: FeedSource[] = [
     url: 'https://www.techgliding.com/feeds/posts/default?alt=rss',
     category: 'all'
   },
-  // Specialized Technology News
+  {
+    id: 'theverge',
+    name: 'The Verge',
+    url: 'https://www.theverge.com/rss/index.xml',
+    category: 'all'
+  },
+  {
+    id: 'engadget',
+    name: 'Engadget',
+    url: 'https://www.engadget.com/rss.xml',
+    category: 'all'
+  },
+  {
+    id: 'arstechnica',
+    name: 'Ars Technica',
+    url: 'https://feeds.arstechnica.com/arstechnica/index',
+    category: 'all'
+  },
+  {
+    id: 'slashdot',
+    name: 'Slashdot',
+    url: 'http://rss.slashdot.org/Slashdot/slashdotMain',
+    category: 'all'
+  },
+  {
+    id: 'cnet',
+    name: 'CNET',
+    url: 'https://www.cnet.com/rss/news/',
+    category: 'all'
+  },
+  {
+    id: 'techradar',
+    name: 'TechRadar',
+    url: 'https://www.techradar.com/rss',
+    category: 'all'
+  },
+  // Specialized Hardware News
   {
     id: 'zdnet',
     name: 'ZDNet',
@@ -48,12 +83,54 @@ export const feedSources: FeedSource[] = [
     category: 'hardware'
   },
   {
+    id: 'tomshardware',
+    name: 'Tom\'s Hardware',
+    url: 'https://www.tomshardware.com/feeds/all',
+    category: 'hardware'
+  },
+  {
+    id: 'anandtech',
+    name: 'AnandTech',
+    url: 'https://www.anandtech.com/rss/',
+    category: 'hardware'
+  },
+  {
+    id: 'pcworld',
+    name: 'PCWorld',
+    url: 'https://www.pcworld.com/index.rss',
+    category: 'hardware'
+  },
+  {
+    id: 'thurrott',
+    name: 'Thurrott',
+    url: 'https://www.thurrott.com/feed',
+    category: 'hardware'
+  },
+  {
+    id: '9to5mac',
+    name: '9to5Mac',
+    url: 'https://9to5mac.com/feed/',
+    category: 'hardware'
+  },
+  {
+    id: '9to5google',
+    name: '9to5Google',
+    url: 'https://9to5google.com/feed/',
+    category: 'hardware'
+  },
+  {
+    id: 'xda',
+    name: 'XDA Developers',
+    url: 'https://www.xda-developers.com/feed/',
+    category: 'hardware'
+  },
+  // AI News
+  {
     id: 'fossbytes',
     name: 'Fossbytes',
     url: 'https://fossbytes.com/feed/?x=1',
-    category: 'all'
+    category: 'ai'
   },
-  // Emerging Technologies
   {
     id: 'siliconangle',
     name: 'SiliconANGLE',
@@ -66,27 +143,183 @@ export const feedSources: FeedSource[] = [
     url: 'https://www.siliconrepublic.com/feed',
     category: 'ai'
   },
-  // Higher Education Technology
+  {
+    id: 'venturebeat',
+    name: 'VentureBeat AI',
+    url: 'https://venturebeat.com/category/ai/feed/',
+    category: 'ai'
+  },
+  {
+    id: 'deepmind',
+    name: 'DeepMind Blog',
+    url: 'https://deepmind.com/blog/feed/basic/',
+    category: 'ai'
+  },
+  {
+    id: 'openai',
+    name: 'OpenAI Blog',
+    url: 'https://openai.com/blog/rss/',
+    category: 'ai'
+  },
+  {
+    id: 'aitrends',
+    name: 'AI Trends',
+    url: 'https://aitrends.com/feed/',
+    category: 'ai'
+  },
+  {
+    id: 'becominghuman',
+    name: 'Becoming Human AI',
+    url: 'https://becominghuman.ai/feed',
+    category: 'ai'
+  },
+  {
+    id: 'aibusiness',
+    name: 'AI Business',
+    url: 'https://aibusiness.com/feed',
+    category: 'ai'
+  },
+  {
+    id: 'artificialintelligence',
+    name: 'MIT AI News',
+    url: 'https://news.mit.edu/topic/artificial-intelligence2-rss.xml',
+    category: 'ai'
+  },
+  // Robotics News
   {
     id: 'campustechnology',
     name: 'Campus Technology',
     url: 'https://campustechnology.com/rss-feeds/rss-list.aspx',
     category: 'robotics'
   },
-  // Other Notable Feeds
+  {
+    id: 'roboticsbusinessreview',
+    name: 'Robotics Business Review',
+    url: 'https://www.roboticsbusinessreview.com/feed/',
+    category: 'robotics'
+  },
+  {
+    id: 'ieee_robotics',
+    name: 'IEEE Spectrum Robotics',
+    url: 'https://spectrum.ieee.org/rss/robotics',
+    category: 'robotics'
+  },
+  {
+    id: 'therobotreport',
+    name: 'The Robot Report',
+    url: 'https://www.therobotreport.com/feed/',
+    category: 'robotics'
+  },
+  {
+    id: 'roboticsandautomationnews',
+    name: 'Robotics & Automation News',
+    url: 'https://roboticsandautomationnews.com/feed/',
+    category: 'robotics'
+  },
+  {
+    id: 'roboticstrends',
+    name: 'Robotics Trends',
+    url: 'https://www.roboticstrends.com/feed',
+    category: 'robotics'
+  },
+  {
+    id: 'bostondynamics',
+    name: 'Boston Dynamics Blog',
+    url: 'https://www.bostondynamics.com/blog/rss.xml',
+    category: 'robotics'
+  },
+  {
+    id: 'robohub',
+    name: 'Robohub',
+    url: 'https://robohub.org/feed/',
+    category: 'robotics'
+  },
+  {
+    id: 'roboticsnews',
+    name: 'Robotics News',
+    url: 'https://roboticsnews.com/feed/',
+    category: 'robotics'
+  },
+  {
+    id: 'servicerobotics',
+    name: 'Service Robotics',
+    url: 'https://www.servicerobotics.eu/feed/',
+    category: 'robotics'
+  },
+  // VR/AR News
   {
     id: 'techwrix',
     name: 'Techwrix',
     url: 'https://techwrix.com/feed',
-    category: 'all'
+    category: 'vrar'
   },
   {
     id: 'wired',
     name: 'Wired',
     url: 'https://www.wired.com/feed/rss',
     category: 'vrar'
+  },
+  {
+    id: 'roadtovr',
+    name: 'Road to VR',
+    url: 'https://www.roadtovr.com/feed/',
+    category: 'vrar'
+  },
+  {
+    id: 'uploadvr',
+    name: 'UploadVR',
+    url: 'https://uploadvr.com/feed/',
+    category: 'vrar'
+  },
+  {
+    id: 'vrfocus',
+    name: 'VRFocus',
+    url: 'https://www.vrfocus.com/feed/',
+    category: 'vrar'
+  },
+  {
+    id: 'vrscout',
+    name: 'VRScout',
+    url: 'https://vrscout.com/feed/',
+    category: 'vrar'
+  },
+  {
+    id: 'arpost',
+    name: 'AR Post',
+    url: 'https://arpost.co/feed/',
+    category: 'vrar'
+  },
+  {
+    id: 'augmentedreality',
+    name: 'Augmented Reality',
+    url: 'https://augmented.reality.news/feed/',
+    category: 'vrar'
+  },
+  {
+    id: 'mixedrealityportal',
+    name: 'Mixed Reality Portal',
+    url: 'https://mixedrealityportal.com/feed/',
+    category: 'vrar'
+  },
+  {
+    id: 'unity3d',
+    name: 'Unity3D Blog',
+    url: 'https://blogs.unity3d.com/feed/',
+    category: 'vrar'
   }
 ];
+
+// RSS feed cache implementation
+interface CacheItem {
+  data: Article[];
+  timestamp: number;
+}
+
+// Cache expiration time in milliseconds (5 minutes)
+const CACHE_EXPIRATION = 5 * 60 * 1000;
+
+// In-memory cache object
+const rssCache: Record<string, CacheItem> = {};
 
 // Function to shuffle an array randomly
 function shuffleArray<T>(array: T[]): T[] {
@@ -193,6 +426,19 @@ const mockArticles: Article[] = [
 // Function to parse RSS feeds
 export const fetchRssFeeds = async (category: Category = 'all'): Promise<Article[]> => {
   try {
+    // Check cache first
+    const cacheKey = `rss-${category}`;
+    const cachedData = rssCache[cacheKey];
+    
+    // Return cached data if it's still valid
+    if (cachedData && (Date.now() - cachedData.timestamp) < CACHE_EXPIRATION) {
+      console.log('Using cached RSS feeds for category:', category);
+      return cachedData.data;
+    }
+    
+    // If not in cache or expired, fetch from sources
+    console.log('Fetching fresh RSS feeds for category:', category);
+    
     // Using a more reliable CORS proxy
     const corsProxy = 'https://api.allorigins.win/raw?url=';
     
@@ -204,8 +450,8 @@ export const fetchRssFeeds = async (category: Category = 'all'): Promise<Article
     // Shuffle the feeds to randomize which ones we fetch
     const shuffledFeeds = shuffleArray(feedsToFetch);
     
-    // Limit to 4 feeds to avoid overwhelming the service
-    const limitedFeeds = shuffledFeeds.slice(0, 4);
+    // Limit to 6 feeds to avoid overwhelming the service but get more content
+    const limitedFeeds = shuffledFeeds.slice(0, 6);
     
     console.log('Fetching RSS feeds:', limitedFeeds.map(f => f.name));
     
@@ -214,10 +460,15 @@ export const fetchRssFeeds = async (category: Category = 'all'): Promise<Article
       try {
         // Add timeout to avoid hanging requests
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+        const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout (faster)
         
         const response = await fetch(`${corsProxy}${encodeURIComponent(feed.url)}`, {
-          signal: controller.signal
+          signal: controller.signal,
+          // Add cache control headers
+          headers: {
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+          }
         });
         
         clearTimeout(timeoutId);
@@ -322,10 +573,18 @@ export const fetchRssFeeds = async (category: Category = 'all'): Promise<Article
     const allArticles = await Promise.all(feedPromises);
     
     // Flatten array and sort by publish date (newest first)
-    return allArticles
+    const results = allArticles
       .flat()
       .sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime())
       .slice(0, 20); // Limit to 20 articles
+      
+    // Store in cache
+    rssCache[cacheKey] = {
+      data: results,
+      timestamp: Date.now()
+    };
+    
+    return results;
   } catch (error) {
     console.error('Error fetching RSS feeds:', error);
     // Fall back to mock articles
@@ -346,7 +605,9 @@ function sanitizeHtml(html: string): string {
     // Remove style tags
     .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
     // Remove event handlers
-    .replace(/on\w+="[^"]*"/gi, '');
+    .replace(/on\w+="[^"]*"/gi, '')
+    // Fix relative URLs for images
+    .replace(/src="\/\//g, 'src="https://');
   
   return sanitized;
 }
@@ -354,11 +615,26 @@ function sanitizeHtml(html: string): string {
 // In a real implementation, this would fetch and parse RSS feeds
 export const fetchArticles = async (category: Category = 'all'): Promise<Article[]> => {
   try {
+    // Check cache first
+    const cacheKey = `articles-${category}`;
+    const cachedData = rssCache[cacheKey];
+    
+    // Return cached data if it's still valid
+    if (cachedData && (Date.now() - cachedData.timestamp) < CACHE_EXPIRATION) {
+      console.log('Using cached articles for category:', category);
+      return cachedData.data;
+    }
+    
     // First try to fetch real RSS feeds
     const rssArticles = await fetchRssFeeds(category);
     
-    // If we got articles, return them
+    // If we got articles, cache and return them
     if (rssArticles.length > 0) {
+      // Store in cache
+      rssCache[cacheKey] = {
+        data: rssArticles,
+        timestamp: Date.now()
+      };
       return rssArticles;
     }
     
@@ -366,13 +642,17 @@ export const fetchArticles = async (category: Category = 'all'): Promise<Article
     console.log('Falling back to mock articles');
     
     // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise(resolve => setTimeout(resolve, 300));
     
-    if (category === 'all') {
-      return mockArticles;
-    }
+    const mockData = category === 'all' ? mockArticles : mockArticles.filter(article => article.category === category);
     
-    return mockArticles.filter(article => article.category === category);
+    // Store mock data in cache too
+    rssCache[cacheKey] = {
+      data: mockData,
+      timestamp: Date.now()
+    };
+    
+    return mockData;
   } catch (error) {
     console.error('Error in fetchArticles:', error);
     // Final fallback to mock articles
@@ -385,23 +665,49 @@ export const fetchArticles = async (category: Category = 'all'): Promise<Article
 
 export const fetchFeaturedArticles = async (): Promise<Article[]> => {
   try {
+    // Check cache first
+    const cacheKey = 'featured-articles';
+    const cachedData = rssCache[cacheKey];
+    
+    // Return cached data if it's still valid
+    if (cachedData && (Date.now() - cachedData.timestamp) < CACHE_EXPIRATION) {
+      console.log('Using cached featured articles');
+      return cachedData.data;
+    }
+    
     // Try to get real articles first
     const rssArticles = await fetchRssFeeds();
     
-    // If we got articles, return 4 featured ones
+    // If we got articles, cache and return 4 featured ones
     if (rssArticles.length > 0) {
       // Randomize the order to get different featured articles each time
-      return shuffleArray(rssArticles).slice(0, 4);
+      const featuredArticles = shuffleArray(rssArticles).slice(0, 4);
+      
+      // Store in cache
+      rssCache[cacheKey] = {
+        data: featuredArticles,
+        timestamp: Date.now()
+      };
+      
+      return featuredArticles;
     }
     
     // Otherwise fall back to mock data
     console.log('Falling back to mock featured articles');
     
     // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 300));
+    await new Promise(resolve => setTimeout(resolve, 200));
     
     // Return first 4 articles as featured
-    return mockArticles.slice(0, 4);
+    const mockFeatured = mockArticles.slice(0, 4);
+    
+    // Store in cache
+    rssCache[cacheKey] = {
+      data: mockFeatured,
+      timestamp: Date.now()
+    };
+    
+    return mockFeatured;
   } catch (error) {
     console.error('Error in fetchFeaturedArticles:', error);
     // Final fallback
@@ -411,7 +717,21 @@ export const fetchFeaturedArticles = async (): Promise<Article[]> => {
 
 export const fetchArticleById = async (id: string): Promise<Article | undefined> => {
   try {
-    // First try to find the article in our mock articles
+    // Check cache first for all articles (potential optimization)
+    const allCacheKeys = Object.keys(rssCache).filter(key => 
+      key.startsWith('articles-') || key.startsWith('rss-')
+    );
+    
+    // Look through all cached article collections
+    for (const cacheKey of allCacheKeys) {
+      const foundArticle = rssCache[cacheKey]?.data?.find(article => article.id === id);
+      if (foundArticle) {
+        console.log('Found article in cache:', id);
+        return foundArticle;
+      }
+    }
+    
+    // If not found in cache, first check mock articles
     const mockArticle = mockArticles.find(article => article.id === id);
     if (mockArticle) {
       return mockArticle;
