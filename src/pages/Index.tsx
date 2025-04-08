@@ -45,38 +45,108 @@ const Index = () => {
     setCurrentCategory(category);
   };
   
-  // Enhanced interactive background elements with faster animations
-  const BackgroundElements = () => (
-    <div className="fixed inset-0 -z-10 overflow-hidden">
-      {/* Gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted"></div>
+  // Enhanced interactive background elements with randomized animations
+  const BackgroundElements = () => {
+    // Generate random background elements
+    const generateRandomElements = () => {
+      const elements = [];
       
-      {/* Background shapes with enhanced animations */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-tech-ai/5 blur-3xl animate-pulse-soft" style={{ animationDuration: '5s' }}></div>
-      <div className="absolute bottom-1/3 right-1/3 w-64 h-64 rounded-full bg-tech-robotics/5 blur-3xl animate-pulse-soft" style={{ animationDuration: '4s', animationDelay: '0.5s' }}></div>
-      <div className="absolute top-2/3 left-1/2 w-80 h-80 rounded-full bg-tech-hardware/5 blur-3xl animate-pulse-soft" style={{ animationDuration: '6s', animationDelay: '1s' }}></div>
+      // Generate gradient orbs
+      for (let i = 0; i < 8; i++) {
+        const size = Math.floor(Math.random() * 60) + 40; // Random size between 40-100%
+        const top = Math.random() * 100;
+        const left = Math.random() * 100;
+        const opacity = Math.random() * 0.15 + 0.05; // Random opacity between 0.05-0.2
+        const categoryColors = ['tech-ai', 'tech-hardware', 'tech-robotics', 'tech-vrar'];
+        const color = categoryColors[Math.floor(Math.random() * categoryColors.length)];
+        const duration = Math.floor(Math.random() * 4) + 3; // Random duration between 3-7s
+        const delay = Math.random() * 1.5; // Random delay between 0-1.5s
+        
+        elements.push(
+          <div 
+            key={`orb-${i}`}
+            className="absolute rounded-full blur-3xl animate-pulse-soft"
+            style={{
+              top: `${top}%`,
+              left: `${left}%`,
+              width: `${size}%`,
+              height: `${size}%`,
+              backgroundColor: `var(--${color})`,
+              opacity,
+              animationDuration: `${duration}s`,
+              animationDelay: `${delay}s`
+            }}
+          />
+        );
+      }
       
-      {/* Additional background shapes */}
-      <div className="absolute top-1/6 right-1/5 w-72 h-72 rounded-full bg-tech-vrar/5 blur-3xl animate-pulse-soft" style={{ animationDuration: '7s', animationDelay: '0.2s' }}></div>
-      <div className="absolute bottom-1/5 left-1/3 w-60 h-60 rounded-full bg-tech-ai/5 blur-3xl animate-pulse-soft" style={{ animationDuration: '5.5s', animationDelay: '1.5s' }}></div>
+      // Generate floating particles
+      for (let i = 0; i < 12; i++) {
+        const size = Math.floor(Math.random() * 8) + 2; // Random size between 2-10px
+        const top = Math.random() * 100;
+        const left = Math.random() * 100;
+        const categoryColors = ['tech-ai', 'tech-hardware', 'tech-robotics', 'tech-vrar'];
+        const color = categoryColors[Math.floor(Math.random() * categoryColors.length)];
+        const duration = (Math.random() * 1.5) + 1; // Random duration between 1-2.5s
+        const delay = Math.random() * 2; // Random delay between 0-2s
+        
+        elements.push(
+          <div 
+            key={`particle-${i}`}
+            className="absolute rounded-full animate-float"
+            style={{
+              top: `${top}%`,
+              left: `${left}%`,
+              width: `${size}px`,
+              height: `${size}px`,
+              backgroundColor: `var(--${color})`,
+              opacity: 0.3,
+              animationDuration: `${duration}s`,
+              animationDelay: `${delay}s`
+            }}
+          />
+        );
+      }
       
-      {/* Animated elements - faster */}
-      <div className="absolute top-10 right-1/4 w-4 h-4 rounded-full bg-tech-ai/20 animate-float" style={{ animationDuration: '2s' }}></div>
-      <div className="absolute top-1/3 left-10 w-6 h-6 rounded-full bg-tech-hardware/20 animate-float" style={{ animationDuration: '1.8s', animationDelay: '0.5s' }}></div>
-      <div className="absolute bottom-1/4 right-10 w-8 h-8 rounded-full bg-tech-robotics/20 animate-float" style={{ animationDuration: '1.5s', animationDelay: '1s' }}></div>
-      <div className="absolute bottom-10 left-1/4 w-5 h-5 rounded-full bg-tech-vrar/20 animate-float" style={{ animationDuration: '2.2s', animationDelay: '1.5s' }}></div>
+      // Generate rotating rings
+      for (let i = 0; i < 4; i++) {
+        const size = Math.floor(Math.random() * 30) + 20; // Random size between 20-50vh
+        const top = Math.random() * 100;
+        const left = Math.random() * 100;
+        const categoryColors = ['tech-ai', 'tech-hardware', 'tech-robotics', 'tech-vrar'];
+        const color = categoryColors[Math.floor(Math.random() * categoryColors.length)];
+        const duration = Math.floor(Math.random() * 10) + 10; // Random duration between 10-20s
+        const direction = Math.random() > 0.5 ? 'normal' : 'reverse';
+        
+        elements.push(
+          <div 
+            key={`ring-${i}`}
+            className="absolute border rounded-full animate-rotate-slow"
+            style={{
+              top: `${top}%`,
+              left: `${left}%`,
+              width: `${size}vh`,
+              height: `${size}vh`,
+              borderColor: `var(--${color})`,
+              borderWidth: '1px',
+              opacity: 0.1,
+              animationDuration: `${duration}s`,
+              animationDirection: direction
+            }}
+          />
+        );
+      }
       
-      {/* Additional animated particles */}
-      <div className="absolute top-1/5 right-1/6 w-3 h-3 rounded-full bg-tech-ai/30 animate-float" style={{ animationDuration: '2.4s', animationDelay: '0.3s' }}></div>
-      <div className="absolute bottom-1/6 right-1/3 w-5 h-5 rounded-full bg-tech-hardware/25 animate-float" style={{ animationDuration: '1.9s', animationDelay: '0.8s' }}></div>
-      <div className="absolute top-2/5 left-1/5 w-7 h-7 rounded-full bg-tech-robotics/20 animate-float" style={{ animationDuration: '2.1s', animationDelay: '1.2s' }}></div>
-      <div className="absolute bottom-2/5 right-1/4 w-4 h-4 rounded-full bg-tech-vrar/25 animate-float" style={{ animationDuration: '2.3s', animationDelay: '0.6s' }}></div>
-      
-      {/* Rotating elements */}
-      <div className="absolute top-1/3 right-1/2 w-40 h-40 border border-tech-ai/10 rounded-full animate-rotate-slow"></div>
-      <div className="absolute bottom-1/2 left-1/4 w-32 h-32 border border-tech-hardware/10 rounded-full animate-rotate-slow" style={{ animationDirection: 'reverse', animationDuration: '15s' }}></div>
-    </div>
-  );
+      return elements;
+    };
+    
+    return (
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted"></div>
+        {generateRandomElements()}
+      </div>
+    );
+  };
   
   return (
     <div className="min-h-screen flex flex-col">

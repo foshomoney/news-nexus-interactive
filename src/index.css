@@ -34,6 +34,12 @@
     --ring: 240 4.9% 83.9%;
 
     --radius: 0.5rem;
+    
+    /* Tech category colors */
+    --tech-ai: 252 56% 57%;        /* Indigo */
+    --tech-hardware: 265 89% 78%;   /* Purple */
+    --tech-robotics: 328 73% 59%;   /* Pink */
+    --tech-vrar: 24 94% 50%;        /* Orange */
   }
 }
 
@@ -56,12 +62,74 @@
   .interactive-bg {
     @apply bg-muted/20 backdrop-blur-sm border border-white/10;
   }
+  
+  /* Article content styling */
+  .article-content {
+    @apply text-base text-foreground space-y-4;
+  }
+  
+  .article-content p {
+    @apply my-4;
+  }
+  
+  .article-content img {
+    @apply rounded-md mx-auto my-6 max-w-full h-auto shadow-sm;
+  }
+  
+  .article-content a {
+    @apply text-primary hover:text-primary/80 transition-colors underline-offset-2;
+  }
+  
+  .article-content h2, .article-content h3, .article-content h4 {
+    @apply font-bold mt-8 mb-4;
+  }
+  
+  .article-content h2 {
+    @apply text-2xl;
+  }
+  
+  .article-content h3 {
+    @apply text-xl;
+  }
+  
+  .article-content h4 {
+    @apply text-lg;
+  }
+  
+  .article-content ul, .article-content ol {
+    @apply pl-6 my-4;
+  }
+  
+  .article-content ul {
+    @apply list-disc;
+  }
+  
+  .article-content ol {
+    @apply list-decimal;
+  }
+  
+  .article-content blockquote {
+    @apply border-l-4 border-muted pl-4 italic my-4;
+  }
+  
+  .article-content pre {
+    @apply bg-muted p-4 rounded-md overflow-x-auto text-sm my-4;
+  }
+  
+  .article-content code {
+    @apply bg-muted px-1 py-0.5 rounded text-sm;
+  }
 }
 
-/* Enhanced animations */
+/* Enhanced animations with faster options */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
+}
+
+@keyframes float-fast {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
 }
 
 @keyframes pulse-soft {
@@ -69,7 +137,18 @@
   50% { opacity: 1; }
 }
 
+@keyframes pulse-quick {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
 @keyframes gradient-background {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes gradient-background-fast {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
@@ -80,7 +159,17 @@
   to { transform: rotate(360deg); }
 }
 
+@keyframes rotate-med {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 @keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes shimmer-fast {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
@@ -89,20 +178,42 @@
   animation: float 3s ease-in-out infinite;
 }
 
+.animate-float-fast {
+  animation: float-fast 1.5s ease-in-out infinite;
+}
+
 .animate-pulse-soft {
   animation: pulse-soft 4s ease-in-out infinite;
+}
+
+.animate-pulse-quick {
+  animation: pulse-quick 2s ease-in-out infinite;
 }
 
 .animate-gradient-background {
   animation: gradient-background 8s ease infinite;
 }
 
+.animate-gradient-background-fast {
+  animation: gradient-background-fast 5s ease infinite;
+}
+
 .animate-rotate-slow {
   animation: rotate-slow 20s linear infinite;
 }
 
+.animate-rotate-med {
+  animation: rotate-med 12s linear infinite;
+}
+
 .animate-shimmer {
   animation: shimmer 2s infinite linear;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+}
+
+.animate-shimmer-fast {
+  animation: shimmer-fast 1.2s infinite linear;
   background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);
   background-size: 200% 100%;
 }

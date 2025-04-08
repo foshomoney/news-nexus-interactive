@@ -50,25 +50,93 @@ const ArticleDetail = () => {
     loadArticle();
   }, [id, navigate]);
   
-  // Background elements with enhanced animations
+  // Enhanced random background elements with faster animations
   const BackgroundElements = () => (
     <div className="fixed inset-0 -z-10 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted"></div>
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-tech-ai/5 blur-3xl animate-pulse-soft"></div>
-      <div className="absolute bottom-1/3 right-1/3 w-64 h-64 rounded-full bg-tech-robotics/5 blur-3xl animate-pulse-soft" style={{ animationDuration: '4s', animationDelay: '1s' }}></div>
-      <div className="absolute top-2/3 left-1/2 w-80 h-80 rounded-full bg-tech-hardware/5 blur-3xl animate-pulse-soft" style={{ animationDuration: '5s', animationDelay: '0.5s' }}></div>
       
-      {/* Additional animated elements */}
-      <div className="absolute top-1/6 right-1/3 w-48 h-48 rounded-full bg-tech-vrar/5 blur-3xl animate-pulse-soft" style={{ animationDuration: '3s' }}></div>
-      <div className="absolute bottom-1/5 left-1/4 w-56 h-56 rounded-full bg-tech-ai/5 blur-3xl animate-pulse-soft" style={{ animationDuration: '6s', animationDelay: '1.5s' }}></div>
+      {/* Randomized gradient orbs */}
+      {Array.from({ length: 8 }).map((_, i) => {
+        const size = Math.floor(Math.random() * 60) + 40; // Random size between 40-100
+        const top = `${Math.random() * 100}%`;
+        const left = `${Math.random() * 100}%`;
+        const opacity = Math.random() * 0.15 + 0.05; // Random opacity between 0.05-0.2
+        const category = ['tech-ai', 'tech-hardware', 'tech-robotics', 'tech-vrar'][Math.floor(Math.random() * 4)];
+        const delay = `${Math.random() * 2}s`;
+        const duration = `${Math.random() * 3 + 2}s`; // Between 2-5s
+        
+        return (
+          <div 
+            key={i}
+            className={`absolute rounded-full blur-3xl animate-pulse-soft`}
+            style={{
+              top,
+              left,
+              width: `${size}%`,
+              height: `${size}%`,
+              backgroundColor: `var(--${category})`,
+              opacity,
+              animationDelay: delay,
+              animationDuration: duration
+            }}
+          />
+        );
+      })}
       
       {/* Fast floating particles */}
-      <div className="absolute top-10 right-1/4 w-4 h-4 rounded-full bg-tech-ai/20 animate-float" style={{ animationDuration: '3s' }}></div>
-      <div className="absolute top-1/3 left-10 w-6 h-6 rounded-full bg-tech-hardware/20 animate-float" style={{ animationDuration: '2.5s', animationDelay: '0.5s' }}></div>
-      <div className="absolute bottom-1/4 right-10 w-8 h-8 rounded-full bg-tech-robotics/20 animate-float" style={{ animationDuration: '2s', animationDelay: '1s' }}></div>
-      <div className="absolute bottom-10 left-1/4 w-5 h-5 rounded-full bg-tech-vrar/20 animate-float" style={{ animationDuration: '2.8s', animationDelay: '1.5s' }}></div>
-      <div className="absolute top-2/5 right-1/5 w-7 h-7 rounded-full bg-tech-ai/20 animate-float" style={{ animationDuration: '3.2s', animationDelay: '0.7s' }}></div>
-      <div className="absolute bottom-2/5 left-1/6 w-4 h-4 rounded-full bg-tech-hardware/20 animate-float" style={{ animationDuration: '2.3s', animationDelay: '1.2s' }}></div>
+      {Array.from({ length: 12 }).map((_, i) => {
+        const size = Math.floor(Math.random() * 8) + 2; // Random size between 2-10px
+        const top = `${Math.random() * 100}%`;
+        const left = `${Math.random() * 100}%`;
+        const category = ['tech-ai', 'tech-hardware', 'tech-robotics', 'tech-vrar'][Math.floor(Math.random() * 4)];
+        const delay = `${Math.random() * 3}s`;
+        const duration = `${Math.random() * 2 + 1}s`; // Between 1-3s
+        
+        return (
+          <div 
+            key={`p-${i}`}
+            className="absolute rounded-full animate-float"
+            style={{
+              top,
+              left,
+              width: `${size}px`,
+              height: `${size}px`,
+              backgroundColor: `var(--${category})`,
+              opacity: 0.3,
+              animationDelay: delay,
+              animationDuration: duration
+            }}
+          />
+        );
+      })}
+      
+      {/* Rotating elements */}
+      {Array.from({ length: 4 }).map((_, i) => {
+        const size = Math.floor(Math.random() * 30) + 20; // Random size between 20-50
+        const top = `${Math.random() * 100}%`;
+        const left = `${Math.random() * 100}%`;
+        const category = ['tech-ai', 'tech-hardware', 'tech-robotics', 'tech-vrar'][Math.floor(Math.random() * 4)];
+        const duration = `${Math.random() * 15 + 10}s`; // Between 10-25s
+        const direction = Math.random() > 0.5 ? 'normal' : 'reverse';
+        
+        return (
+          <div 
+            key={`r-${i}`}
+            className="absolute border rounded-full animate-rotate-slow"
+            style={{
+              top,
+              left,
+              width: `${size}vh`,
+              height: `${size}vh`,
+              borderColor: `var(--${category})`,
+              borderWidth: '1px',
+              opacity: 0.1,
+              animationDuration: duration,
+              animationDirection: direction
+            }}
+          />
+        );
+      })}
     </div>
   );
   
@@ -76,20 +144,15 @@ const ArticleDetail = () => {
   const renderArticleContent = () => {
     if (!article?.content) return <p className="text-lg">{article?.summary}</p>;
     
-    // If content is very short, it's likely not properly parsed
-    if (article.content.length < 100 && article.summary) {
-      return (
-        <div className="space-y-4">
-          <p className="text-lg font-medium">{article.summary}</p>
-          <div className="prose prose-lg max-w-none dark:prose-invert"
-            dangerouslySetInnerHTML={{ __html: article.content }} />
-        </div>
-      );
-    }
-    
+    // Display the full article content
     return (
-      <div className="prose prose-lg max-w-none dark:prose-invert"
-        dangerouslySetInnerHTML={{ __html: article.content }} />
+      <div className="prose prose-lg max-w-none dark:prose-invert space-y-4">
+        <p className="text-lg font-medium mb-6">{article.summary}</p>
+        <div 
+          className="article-content"
+          dangerouslySetInnerHTML={{ __html: article.content }} 
+        />
+      </div>
     );
   };
   
@@ -159,14 +222,16 @@ const ArticleDetail = () => {
           <span>{article.sourceName}</span>
           <span className="mx-2">•</span>
           <span>{article.publishDate}</span>
-          <a 
-            href={article.sourceUrl} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="ml-4 inline-flex items-center hover:text-primary transition-colors"
-          >
-            Original source <ExternalLink className="h-3 w-3 ml-1" />
-          </a>
+          {article.sourceUrl && (
+            <a 
+              href={article.sourceUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="ml-4 inline-flex items-center hover:text-primary transition-colors"
+            >
+              Original source <ExternalLink className="h-3 w-3 ml-1" />
+            </a>
+          )}
         </div>
         
         {article.imageUrl && (
@@ -194,15 +259,17 @@ const ArticleDetail = () => {
             <ArrowLeft className="mr-2 h-4 w-4" /> Back to articles
           </Button>
           
-          <a 
-            href={article.sourceUrl} 
-            target="_blank" 
-            rel="noopener noreferrer"
-          >
-            <Button>
-              Read original <ExternalLink className="h-4 w-4 ml-2" />
-            </Button>
-          </a>
+          {article.sourceUrl && (
+            <a 
+              href={article.sourceUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <Button>
+                Read original <ExternalLink className="h-4 w-4 ml-2" />
+              </Button>
+            </a>
+          )}
         </div>
       </main>
       <Footer />

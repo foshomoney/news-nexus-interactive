@@ -1,32 +1,8 @@
 import { Article, Category, FeedSource } from '../types/news';
 
-// RSS feed sources (expanded with many more reliable sources)
+// RSS feed sources (with reliable working feeds)
 export const feedSources: FeedSource[] = [
   // General Technology News
-  {
-    id: 'techcrunch',
-    name: 'TechCrunch',
-    url: 'https://techcrunch.com/feed/',
-    category: 'all'
-  },
-  {
-    id: 'techdirt',
-    name: 'Techdirt',
-    url: 'https://feeds.feedburner.com/techdirt/feed',
-    category: 'all'
-  },
-  {
-    id: 'techengage',
-    name: 'TechEngage',
-    url: 'https://techengage.com/feed',
-    category: 'all'
-  },
-  {
-    id: 'techgliding',
-    name: 'TechGliding',
-    url: 'https://www.techgliding.com/feeds/posts/default?alt=rss',
-    category: 'all'
-  },
   {
     id: 'theverge',
     name: 'The Verge',
@@ -34,9 +10,15 @@ export const feedSources: FeedSource[] = [
     category: 'all'
   },
   {
-    id: 'engadget',
-    name: 'Engadget',
-    url: 'https://www.engadget.com/rss.xml',
+    id: 'wired',
+    name: 'Wired',
+    url: 'https://www.wired.com/feed/rss',
+    category: 'all'
+  },
+  {
+    id: 'techcrunch',
+    name: 'TechCrunch',
+    url: 'https://techcrunch.com/feed/',
     category: 'all'
   },
   {
@@ -46,15 +28,27 @@ export const feedSources: FeedSource[] = [
     category: 'all'
   },
   {
-    id: 'slashdot',
-    name: 'Slashdot',
-    url: 'http://rss.slashdot.org/Slashdot/slashdotMain',
-    category: 'all'
-  },
-  {
     id: 'cnet',
     name: 'CNET',
     url: 'https://www.cnet.com/rss/news/',
+    category: 'all'
+  },
+  {
+    id: 'engadget',
+    name: 'Engadget',
+    url: 'https://www.engadget.com/rss.xml',
+    category: 'all'
+  },
+  {
+    id: 'zdnet',
+    name: 'ZDNet',
+    url: 'https://www.zdnet.com/news/rss.xml',
+    category: 'all'
+  },
+  {
+    id: 'mashable',
+    name: 'Mashable',
+    url: 'https://mashable.com/feeds/rss/all',
     category: 'all'
   },
   {
@@ -63,25 +57,14 @@ export const feedSources: FeedSource[] = [
     url: 'https://www.techradar.com/rss',
     category: 'all'
   },
-  // Specialized Hardware News
   {
-    id: 'zdnet',
-    name: 'ZDNet',
-    url: 'https://www.zdnet.com/news/rss.xml',
-    category: 'hardware'
+    id: 'gigaom',
+    name: 'GigaOM',
+    url: 'https://gigaom.com/feed/',
+    category: 'all'
   },
-  {
-    id: 'androidcentral',
-    name: 'Android Central',
-    url: 'https://www.androidcentral.com/rss.xml',
-    category: 'hardware'
-  },
-  {
-    id: 'macworld',
-    name: 'Macworld',
-    url: 'https://www.macworld.com/index.rss',
-    category: 'hardware'
-  },
+  
+  // Hardware News
   {
     id: 'tomshardware',
     name: 'Tom\'s Hardware',
@@ -101,9 +84,27 @@ export const feedSources: FeedSource[] = [
     category: 'hardware'
   },
   {
-    id: 'thurrott',
-    name: 'Thurrott',
-    url: 'https://www.thurrott.com/feed',
+    id: 'macrumors',
+    name: 'MacRumors',
+    url: 'https://feeds.macrumors.com/MacRumors-All',
+    category: 'hardware'
+  },
+  {
+    id: 'androidauthority',
+    name: 'Android Authority',
+    url: 'https://www.androidauthority.com/feed/',
+    category: 'hardware'
+  },
+  {
+    id: 'digitaltrends',
+    name: 'Digital Trends',
+    url: 'https://www.digitaltrends.com/feed/',
+    category: 'hardware'
+  },
+  {
+    id: 'xda',
+    name: 'XDA Developers',
+    url: 'https://www.xda-developers.com/feed/',
     category: 'hardware'
   },
   {
@@ -119,40 +120,35 @@ export const feedSources: FeedSource[] = [
     category: 'hardware'
   },
   {
-    id: 'xda',
-    name: 'XDA Developers',
-    url: 'https://www.xda-developers.com/feed/',
+    id: 'gsmarena',
+    name: 'GSMArena',
+    url: 'https://www.gsmarena.com/rss-news-reviews.php3',
     category: 'hardware'
   },
+  {
+    id: 'pcgamer',
+    name: 'PC Gamer',
+    url: 'https://www.pcgamer.com/rss/',
+    category: 'hardware'
+  },
+  {
+    id: 'overclockers',
+    name: 'Overclockers',
+    url: 'https://www.overclockers.com/feed/',
+    category: 'hardware'
+  },
+  
   // AI News
   {
-    id: 'fossbytes',
-    name: 'Fossbytes',
-    url: 'https://fossbytes.com/feed/?x=1',
-    category: 'ai'
-  },
-  {
-    id: 'siliconangle',
-    name: 'SiliconANGLE',
-    url: 'https://siliconangle.com/feed/',
-    category: 'ai'
-  },
-  {
-    id: 'siliconrepublic',
-    name: 'Silicon Republic',
-    url: 'https://www.siliconrepublic.com/feed',
-    category: 'ai'
-  },
-  {
-    id: 'venturebeat',
+    id: 'venturebeat_ai',
     name: 'VentureBeat AI',
     url: 'https://venturebeat.com/category/ai/feed/',
     category: 'ai'
   },
   {
-    id: 'deepmind',
-    name: 'DeepMind Blog',
-    url: 'https://deepmind.com/blog/feed/basic/',
+    id: 'artificialintelligence_mit',
+    name: 'MIT AI News',
+    url: 'https://news.mit.edu/topic/artificial-intelligence2-rss.xml',
     category: 'ai'
   },
   {
@@ -162,44 +158,69 @@ export const feedSources: FeedSource[] = [
     category: 'ai'
   },
   {
-    id: 'aitrends',
-    name: 'AI Trends',
-    url: 'https://aitrends.com/feed/',
+    id: 'google_ai',
+    name: 'Google AI Blog',
+    url: 'http://feeds.feedburner.com/blogspot/gJZg',
     category: 'ai'
   },
   {
-    id: 'becominghuman',
-    name: 'Becoming Human AI',
-    url: 'https://becominghuman.ai/feed',
+    id: 'deeplearning',
+    name: 'Deep Learning News',
+    url: 'https://www.deeplearning.ai/feed/',
     category: 'ai'
   },
   {
-    id: 'aibusiness',
-    name: 'AI Business',
-    url: 'https://aibusiness.com/feed',
+    id: 'kaggle',
+    name: 'Kaggle',
+    url: 'https://medium.com/feed/kaggle-blog',
     category: 'ai'
   },
   {
-    id: 'artificialintelligence',
-    name: 'MIT AI News',
-    url: 'https://news.mit.edu/topic/artificial-intelligence2-rss.xml',
+    id: 'pytorch',
+    name: 'PyTorch',
+    url: 'https://pytorch.org/feed.xml',
     category: 'ai'
   },
+  {
+    id: 'tensorflow',
+    name: 'TensorFlow',
+    url: 'https://blog.tensorflow.org/feeds/posts/default?alt=rss',
+    category: 'ai'
+  },
+  {
+    id: 'microsoft_ai',
+    name: 'Microsoft AI Blog',
+    url: 'https://blogs.microsoft.com/ai/feed/',
+    category: 'ai'
+  },
+  {
+    id: 'ibm_research',
+    name: 'IBM Research',
+    url: 'https://www.ibm.com/blogs/research/feed/',
+    category: 'ai'
+  },
+  {
+    id: 'nvidia_ai',
+    name: 'NVIDIA AI Blog',
+    url: 'https://blogs.nvidia.com/blog/category/deep-learning/feed/',
+    category: 'ai'
+  },
+  {
+    id: 'ml_mastering',
+    name: 'Machine Learning Mastery',
+    url: 'https://machinelearningmastery.com/feed/',
+    category: 'ai'
+  },
+  {
+    id: 'towards_ai',
+    name: 'Towards AI',
+    url: 'https://pub.towardsai.net/feed',
+    category: 'ai'
+  },
+  
   // Robotics News
   {
-    id: 'campustechnology',
-    name: 'Campus Technology',
-    url: 'https://campustechnology.com/rss-feeds/rss-list.aspx',
-    category: 'robotics'
-  },
-  {
-    id: 'roboticsbusinessreview',
-    name: 'Robotics Business Review',
-    url: 'https://www.roboticsbusinessreview.com/feed/',
-    category: 'robotics'
-  },
-  {
-    id: 'ieee_robotics',
+    id: 'ieee_spectrum_robotics',
     name: 'IEEE Spectrum Robotics',
     url: 'https://spectrum.ieee.org/rss/robotics',
     category: 'robotics'
@@ -217,48 +238,61 @@ export const feedSources: FeedSource[] = [
     category: 'robotics'
   },
   {
-    id: 'roboticstrends',
-    name: 'Robotics Trends',
-    url: 'https://www.roboticstrends.com/feed',
-    category: 'robotics'
-  },
-  {
-    id: 'bostondynamics',
-    name: 'Boston Dynamics Blog',
-    url: 'https://www.bostondynamics.com/blog/rss.xml',
-    category: 'robotics'
-  },
-  {
     id: 'robohub',
     name: 'Robohub',
     url: 'https://robohub.org/feed/',
     category: 'robotics'
   },
   {
-    id: 'roboticsnews',
-    name: 'Robotics News',
-    url: 'https://roboticsnews.com/feed/',
+    id: 'robots',
+    name: 'Robots.net',
+    url: 'https://robots.net/feed/',
     category: 'robotics'
   },
   {
-    id: 'servicerobotics',
-    name: 'Service Robotics',
-    url: 'https://www.servicerobotics.eu/feed/',
+    id: 'bostondynamics',
+    name: 'Boston Dynamics Blog',
+    url: 'https://bostondynamics.com/resources/feed/',
     category: 'robotics'
   },
+  {
+    id: 'dronelife',
+    name: 'DroneLife',
+    url: 'https://dronelife.com/feed/',
+    category: 'robotics'
+  },
+  {
+    id: 'thedronegirl',
+    name: 'The Drone Girl',
+    url: 'https://thedronegirl.com/feed/',
+    category: 'robotics'
+  },
+  {
+    id: 'universal_robots',
+    name: 'Universal Robots Blog',
+    url: 'https://blog.universal-robots.com/rss.xml',
+    category: 'robotics'
+  },
+  {
+    id: 'robotiq',
+    name: 'Robotiq Blog',
+    url: 'https://blog.robotiq.com/rss.xml',
+    category: 'robotics'
+  },
+  {
+    id: 'nasa_jpl',
+    name: 'NASA JPL',
+    url: 'https://www.jpl.nasa.gov/rss.xml',
+    category: 'robotics'
+  },
+  {
+    id: 'eniyarobotics',
+    name: 'Eniya Robotics',
+    url: 'https://eniyarobotics.com/feed/',
+    category: 'robotics'
+  },
+  
   // VR/AR News
-  {
-    id: 'techwrix',
-    name: 'Techwrix',
-    url: 'https://techwrix.com/feed',
-    category: 'vrar'
-  },
-  {
-    id: 'wired',
-    name: 'Wired',
-    url: 'https://www.wired.com/feed/rss',
-    category: 'vrar'
-  },
   {
     id: 'roadtovr',
     name: 'Road to VR',
@@ -272,15 +306,15 @@ export const feedSources: FeedSource[] = [
     category: 'vrar'
   },
   {
-    id: 'vrfocus',
-    name: 'VRFocus',
-    url: 'https://www.vrfocus.com/feed/',
-    category: 'vrar'
-  },
-  {
     id: 'vrscout',
     name: 'VRScout',
     url: 'https://vrscout.com/feed/',
+    category: 'vrar'
+  },
+  {
+    id: 'arvr_journey',
+    name: 'AR/VR Journey',
+    url: 'https://arvrjourney.com/feed',
     category: 'vrar'
   },
   {
@@ -290,21 +324,51 @@ export const feedSources: FeedSource[] = [
     category: 'vrar'
   },
   {
-    id: 'augmentedreality',
-    name: 'Augmented Reality',
-    url: 'https://augmented.reality.news/feed/',
+    id: 'nextreality',
+    name: 'Next Reality',
+    url: 'https://next.reality.news/feed/',
     category: 'vrar'
   },
   {
-    id: 'mixedrealityportal',
-    name: 'Mixed Reality Portal',
-    url: 'https://mixedrealityportal.com/feed/',
+    id: 'vrstudio',
+    name: 'VR/AR Studio',
+    url: 'https://virtualrealitytimes.com/feed/',
+    category: 'vrar'
+  },
+  {
+    id: 'vrgame',
+    name: 'VR Game',
+    url: 'https://vrgame.jp/feed/',
     category: 'vrar'
   },
   {
     id: 'unity3d',
-    name: 'Unity3D Blog',
-    url: 'https://blogs.unity3d.com/feed/',
+    name: 'Unity Blog',
+    url: 'https://blog.unity.com/feed',
+    category: 'vrar'
+  },
+  {
+    id: 'unrealengine',
+    name: 'Unreal Engine',
+    url: 'https://www.unrealengine.com/en-US/feed',
+    category: 'vrar'
+  },
+  {
+    id: 'oculus',
+    name: 'Meta Quest Blog',
+    url: 'https://www.oculus.com/blog/rss/',
+    category: 'vrar'
+  },
+  {
+    id: 'vive',
+    name: 'HTC Vive Blog',
+    url: 'https://blog.vive.com/us/feed/',
+    category: 'vrar'
+  },
+  {
+    id: 'microsoft_mixed_reality',
+    name: 'Microsoft Mixed Reality',
+    url: 'https://docs.microsoft.com/en-us/windows/mixed-reality/feed.xml',
     category: 'vrar'
   }
 ];
@@ -423,15 +487,16 @@ const mockArticles: Article[] = [
   }
 ];
 
-// Function to parse RSS feeds
+// Function to parse RSS feeds with more reliable CORS proxies
 export const fetchRssFeeds = async (category: Category = 'all'): Promise<Article[]> => {
   try {
     // Check cache first
     const cacheKey = `rss-${category}`;
     const cachedData = rssCache[cacheKey];
     
-    // Return cached data if it's still valid
-    if (cachedData && (Date.now() - cachedData.timestamp) < CACHE_EXPIRATION) {
+    // Return cached data if it's still valid (reduced cache time to 2 minutes for testing)
+    const REDUCED_CACHE_TIME = 2 * 60 * 1000;
+    if (cachedData && (Date.now() - cachedData.timestamp) < REDUCED_CACHE_TIME) {
       console.log('Using cached RSS feeds for category:', category);
       return cachedData.data;
     }
@@ -439,8 +504,12 @@ export const fetchRssFeeds = async (category: Category = 'all'): Promise<Article
     // If not in cache or expired, fetch from sources
     console.log('Fetching fresh RSS feeds for category:', category);
     
-    // Using a more reliable CORS proxy
-    const corsProxy = 'https://api.allorigins.win/raw?url=';
+    // Array of CORS proxies to try if one fails
+    const corsProxies = [
+      'https://api.allorigins.win/raw?url=',
+      'https://corsproxy.io/?',
+      'https://cors-anywhere.herokuapp.com/'
+    ];
     
     // Determine which feeds to fetch based on category
     const feedsToFetch = category === 'all' 
@@ -450,123 +519,73 @@ export const fetchRssFeeds = async (category: Category = 'all'): Promise<Article
     // Shuffle the feeds to randomize which ones we fetch
     const shuffledFeeds = shuffleArray(feedsToFetch);
     
-    // Limit to 6 feeds to avoid overwhelming the service but get more content
-    const limitedFeeds = shuffledFeeds.slice(0, 6);
+    // Limit to 8 feeds for more content without overloading
+    const limitedFeeds = shuffledFeeds.slice(0, 8);
     
     console.log('Fetching RSS feeds:', limitedFeeds.map(f => f.name));
     
-    // Fetch feeds concurrently with timeout
+    // Fetch feeds concurrently with timeout and retry logic
     const feedPromises = limitedFeeds.map(async (feed) => {
-      try {
-        // Add timeout to avoid hanging requests
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout (faster)
-        
-        const response = await fetch(`${corsProxy}${encodeURIComponent(feed.url)}`, {
-          signal: controller.signal,
-          // Add cache control headers
-          headers: {
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
-          }
-        });
-        
-        clearTimeout(timeoutId);
-        
-        if (!response.ok) {
-          console.error(`Failed to fetch ${feed.name}: ${response.status}`);
-          return [];
-        }
-        
-        const xmlText = await response.text();
-        
-        // Parse XML safely
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
-        
-        // Check if parsing failed
-        const parserError = xmlDoc.querySelector('parsererror');
-        if (parserError) {
-          console.error(`XML parsing error for ${feed.name}:`, parserError.textContent);
-          return [];
-        }
-        
-        // Extract items (may vary depending on RSS format)
-        const items = Array.from(xmlDoc.querySelectorAll('item'));
-        
-        return items.map((item, index) => {
-          // Extract content (handling different RSS formats)
-          const title = item.querySelector('title')?.textContent || 'Untitled';
-          const link = item.querySelector('link')?.textContent || '#';
+      // Try each proxy in order until one works
+      for (const corsProxy of corsProxies) {
+        try {
+          // Add timeout to avoid hanging requests (even faster)
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 2000); // 2 second timeout (faster)
           
-          // Try different content tags that might exist
-          let content = 
-            item.querySelector('content\\:encoded')?.textContent || 
-            item.querySelector('description')?.textContent ||
-            item.querySelector('summary')?.textContent || '';
-          
-          // Clean content - remove CDATA sections if present
-          content = content.replace(/<!\[CDATA\[(.*?)\]\]>/gs, '$1');
-          
-          // Extract the first paragraph as summary
-          const summary = content
-            .replace(/<\/?[^>]+(>|$)/g, '') // Remove HTML tags
-            .split('.')[0] + '.'; // Get first sentence
-          
-          // Try to find image in content
-          let imageUrl = 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b'; // Default image
-          
-          // Look for media:content or enclosure tags for images
-          const mediaContent = item.querySelector('media\\:content, enclosure');
-          if (mediaContent && mediaContent.getAttribute('url')) {
-            imageUrl = mediaContent.getAttribute('url') || imageUrl;
-          } else {
-            // Try to extract image from content HTML if exists
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = content;
-            const img = tempDiv.querySelector('img');
-            if (img && img.src) {
-              imageUrl = img.src;
+          const response = await fetch(`${corsProxy}${encodeURIComponent(feed.url)}`, {
+            signal: controller.signal,
+            // Add cache control headers
+            headers: {
+              'Cache-Control': 'no-cache',
+              'Pragma': 'no-cache'
             }
+          });
+          
+          clearTimeout(timeoutId);
+          
+          if (!response.ok) {
+            console.error(`Failed to fetch ${feed.name} with ${corsProxy}: ${response.status}`);
+            continue; // Try next proxy
           }
           
-          // Get published date
-          const pubDate = item.querySelector('pubDate')?.textContent || 
-                         item.querySelector('dc\\:date')?.textContent || 
-                         new Date().toUTCString();
+          const xmlText = await response.text();
           
-          // Format date
-          let publishDate;
-          try {
-            publishDate = new Date(pubDate).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            });
-          } catch (e) {
-            publishDate = new Date().toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            });
+          // Parse XML safely
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+          
+          // Check if parsing failed
+          const parserError = xmlDoc.querySelector('parsererror');
+          if (parserError) {
+            console.error(`XML parsing error for ${feed.name}:`, parserError.textContent);
+            continue; // Try next proxy
           }
           
-          return {
-            id: `${feed.id}-${index}`,
-            title,
-            summary,
-            content: sanitizeHtml(content),
-            imageUrl,
-            sourceUrl: link,
-            sourceName: feed.name,
-            publishDate,
-            category: feed.category as Category
-          };
-        });
-      } catch (error) {
-        console.error(`Error fetching RSS feed for ${feed.name}:`, error);
-        return [];
+          // Extract items (may vary depending on RSS format)
+          const items = Array.from(xmlDoc.querySelectorAll('item'));
+          
+          if (items.length === 0) {
+            // Try alternate tag names used in some feeds
+            const entries = Array.from(xmlDoc.querySelectorAll('entry'));
+            if (entries.length > 0) {
+              return parseAtomEntries(entries, feed);
+            }
+            console.warn(`No items found in ${feed.name} feed`);
+            continue; // Try next proxy
+          }
+          
+          return parseRssItems(items, feed);
+          
+        } catch (error) {
+          console.error(`Error fetching RSS feed for ${feed.name} with ${corsProxy}:`, error);
+          // Continue to try next proxy
+        }
       }
+      
+      // If all proxies failed, return empty array
+      console.error(`All proxies failed for ${feed.name}`);
+      return [];
     });
     
     // Wait for all feeds to be fetched and parsed
@@ -575,8 +594,9 @@ export const fetchRssFeeds = async (category: Category = 'all'): Promise<Article
     // Flatten array and sort by publish date (newest first)
     const results = allArticles
       .flat()
+      .filter(article => article.title && article.title.trim() !== '') // Filter out empty titles
       .sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime())
-      .slice(0, 20); // Limit to 20 articles
+      .slice(0, 24); // Increased to 24 articles for more content
       
     // Store in cache
     rssCache[cacheKey] = {
@@ -591,6 +611,190 @@ export const fetchRssFeeds = async (category: Category = 'all'): Promise<Article
     return fetchArticles(category);
   }
 };
+
+// Parse RSS items (RSS 2.0 format)
+function parseRssItems(items: Element[], feed: FeedSource): Article[] {
+  return items.map((item, index) => {
+    // Extract content (handling different RSS formats)
+    const title = item.querySelector('title')?.textContent?.trim() || 'Untitled';
+    const link = item.querySelector('link')?.textContent?.trim() || '#';
+    
+    // Try different content tags that might exist
+    let content = 
+      item.querySelector('content\\:encoded')?.textContent || 
+      item.querySelector('description')?.textContent ||
+      item.querySelector('summary')?.textContent || '';
+    
+    // Clean content - remove CDATA sections if present
+    content = content.replace(/<!\[CDATA\[(.*?)\]\]>/gs, '$1');
+    
+    // Extract the first paragraph as summary, but make it longer
+    let summary = '';
+    
+    if (content) {
+      // Try to get a reasonable summary (first 2-3 sentences or 250 chars)
+      const textContent = content.replace(/<\/?[^>]+(>|$)/g, ''); // Remove HTML tags
+      const sentences = textContent.split(/[.!?]+/);
+      summary = sentences.slice(0, 3).join('. ').trim();
+      
+      if (summary.length > 250) {
+        summary = summary.substring(0, 250) + '...';
+      } else if (summary.length === 0) {
+        summary = title; // Use title as fallback
+      }
+      
+      // Ensure it ends with punctuation
+      if (!summary.match(/[.!?]$/)) {
+        summary += '.';
+      }
+    }
+    
+    // Try to find image in content
+    let imageUrl = ''; // Default to empty, will set placeholder later if needed
+    
+    // Look for media:content or enclosure tags for images
+    const mediaContent = item.querySelector('media\\:content, enclosure');
+    if (mediaContent && mediaContent.getAttribute('url')) {
+      imageUrl = mediaContent.getAttribute('url') || '';
+    } else if (content) {
+      // Try to extract image from content HTML if exists
+      const imgRegex = /<img[^>]+src="([^">]+)"/i;
+      const imgMatch = content.match(imgRegex);
+      if (imgMatch && imgMatch[1]) {
+        imageUrl = imgMatch[1];
+      }
+    }
+    
+    // Get published date
+    const pubDate = item.querySelector('pubDate')?.textContent || 
+                   item.querySelector('dc\\:date')?.textContent || 
+                   new Date().toUTCString();
+    
+    // Format date
+    let publishDate;
+    try {
+      publishDate = new Date(pubDate).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    } catch (e) {
+      publishDate = new Date().toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+    
+    return {
+      id: `${feed.id}-${index}`,
+      title,
+      summary,
+      content: sanitizeHtml(content),
+      imageUrl,
+      sourceUrl: link,
+      sourceName: feed.name,
+      publishDate,
+      category: feed.category as Category
+    };
+  });
+}
+
+// Parse Atom entries (Atom format)
+function parseAtomEntries(entries: Element[], feed: FeedSource): Article[] {
+  return entries.map((entry, index) => {
+    // Extract content
+    const title = entry.querySelector('title')?.textContent?.trim() || 'Untitled';
+    
+    // Get link (Atom uses href attribute)
+    let link = '#';
+    const linkElement = entry.querySelector('link');
+    if (linkElement) {
+      link = linkElement.getAttribute('href') || '#';
+    }
+    
+    // Get content
+    let content = 
+      entry.querySelector('content')?.textContent || 
+      entry.querySelector('summary')?.textContent || '';
+    
+    // Clean content
+    content = content.replace(/<!\[CDATA\[(.*?)\]\]>/gs, '$1');
+    
+    // Extract summary
+    let summary = '';
+    
+    if (content) {
+      // Try to get a reasonable summary
+      const textContent = content.replace(/<\/?[^>]+(>|$)/g, ''); // Remove HTML tags
+      const sentences = textContent.split(/[.!?]+/);
+      summary = sentences.slice(0, 3).join('. ').trim();
+      
+      if (summary.length > 250) {
+        summary = summary.substring(0, 250) + '...';
+      } else if (summary.length === 0) {
+        summary = title; // Use title as fallback
+      }
+      
+      // Ensure it ends with punctuation
+      if (!summary.match(/[.!?]$/)) {
+        summary += '.';
+      }
+    }
+    
+    // Try to find image
+    let imageUrl = '';
+    
+    // Check for thumbnail
+    const mediaGroup = entry.querySelector('media\\:group');
+    if (mediaGroup) {
+      const mediaThumbnail = mediaGroup.querySelector('media\\:thumbnail');
+      if (mediaThumbnail) {
+        imageUrl = mediaThumbnail.getAttribute('url') || '';
+      }
+    } else if (content) {
+      // Try to extract image from content
+      const imgRegex = /<img[^>]+src="([^">]+)"/i;
+      const imgMatch = content.match(imgRegex);
+      if (imgMatch && imgMatch[1]) {
+        imageUrl = imgMatch[1];
+      }
+    }
+    
+    // Get published date
+    const published = entry.querySelector('published')?.textContent || 
+                     entry.querySelector('updated')?.textContent || 
+                     new Date().toUTCString();
+    
+    // Format date
+    let publishDate;
+    try {
+      publishDate = new Date(published).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    } catch (e) {
+      publishDate = new Date().toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+    
+    return {
+      id: `${feed.id}-${index}`,
+      title,
+      summary,
+      content: sanitizeHtml(content),
+      imageUrl,
+      sourceUrl: link,
+      sourceName: feed.name,
+      publishDate,
+      category: feed.category as Category
+    };
+  });
+}
 
 // Helper function to sanitize HTML content
 function sanitizeHtml(html: string): string {
@@ -607,7 +811,15 @@ function sanitizeHtml(html: string): string {
     // Remove event handlers
     .replace(/on\w+="[^"]*"/gi, '')
     // Fix relative URLs for images
-    .replace(/src="\/\//g, 'src="https://');
+    .replace(/src="\/\//g, 'src="https://')
+    .replace(/src="\//g, (match, offset, string) => {
+      // Try to determine domain from content
+      const domainMatch = string.match(/https?:\/\/([^/]+)/);
+      if (domainMatch && domainMatch[0]) {
+        return `src="${domainMatch[0]}/`;
+      }
+      return match;
+    });
   
   return sanitized;
 }
@@ -619,8 +831,9 @@ export const fetchArticles = async (category: Category = 'all'): Promise<Article
     const cacheKey = `articles-${category}`;
     const cachedData = rssCache[cacheKey];
     
-    // Return cached data if it's still valid
-    if (cachedData && (Date.now() - cachedData.timestamp) < CACHE_EXPIRATION) {
+    // Return cached data if it's still valid (reduced cache time)
+    const REDUCED_CACHE_TIME = 2 * 60 * 1000; // 2 minutes for testing
+    if (cachedData && (Date.now() - cachedData.timestamp) < REDUCED_CACHE_TIME) {
       console.log('Using cached articles for category:', category);
       return cachedData.data;
     }
@@ -641,8 +854,8 @@ export const fetchArticles = async (category: Category = 'all'): Promise<Article
     // Otherwise fall back to mock data
     console.log('Falling back to mock articles');
     
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 300));
+    // Simulate API delay (much shorter)
+    await new Promise(resolve => setTimeout(resolve, 100));
     
     const mockData = category === 'all' ? mockArticles : mockArticles.filter(article => article.category === category);
     
@@ -669,8 +882,9 @@ export const fetchFeaturedArticles = async (): Promise<Article[]> => {
     const cacheKey = 'featured-articles';
     const cachedData = rssCache[cacheKey];
     
-    // Return cached data if it's still valid
-    if (cachedData && (Date.now() - cachedData.timestamp) < CACHE_EXPIRATION) {
+    // Return cached data if it's still valid (reduced cache time)
+    const REDUCED_CACHE_TIME = 2 * 60 * 1000; // 2 minutes for testing
+    if (cachedData && (Date.now() - cachedData.timestamp) < REDUCED_CACHE_TIME) {
       console.log('Using cached featured articles');
       return cachedData.data;
     }
@@ -678,10 +892,15 @@ export const fetchFeaturedArticles = async (): Promise<Article[]> => {
     // Try to get real articles first
     const rssArticles = await fetchRssFeeds();
     
-    // If we got articles, cache and return 4 featured ones
+    // If we got articles, cache and return 6 featured ones
     if (rssArticles.length > 0) {
-      // Randomize the order to get different featured articles each time
-      const featuredArticles = shuffleArray(rssArticles).slice(0, 4);
+      // Only get articles with images for the carousel
+      const articlesWithImages = rssArticles.filter(article => article.imageUrl && article.imageUrl !== '');
+      
+      // If we have enough articles with images, use those
+      const featuredArticles = articlesWithImages.length >= 6 
+        ? articlesWithImages.slice(0, 6)
+        : rssArticles.slice(0, 6);
       
       // Store in cache
       rssCache[cacheKey] = {
@@ -695,11 +914,11 @@ export const fetchFeaturedArticles = async (): Promise<Article[]> => {
     // Otherwise fall back to mock data
     console.log('Falling back to mock featured articles');
     
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 200));
+    // Simulate API delay (shorter)
+    await new Promise(resolve => setTimeout(resolve, 100));
     
-    // Return first 4 articles as featured
-    const mockFeatured = mockArticles.slice(0, 4);
+    // Return first 6 articles as featured
+    const mockFeatured = mockArticles.slice(0, 6);
     
     // Store in cache
     rssCache[cacheKey] = {
@@ -711,7 +930,7 @@ export const fetchFeaturedArticles = async (): Promise<Article[]> => {
   } catch (error) {
     console.error('Error in fetchFeaturedArticles:', error);
     // Final fallback
-    return mockArticles.slice(0, 4);
+    return mockArticles.slice(0, 6);
   }
 };
 
@@ -719,7 +938,7 @@ export const fetchArticleById = async (id: string): Promise<Article | undefined>
   try {
     // Check cache first for all articles (potential optimization)
     const allCacheKeys = Object.keys(rssCache).filter(key => 
-      key.startsWith('articles-') || key.startsWith('rss-')
+      key.startsWith('articles-') || key.startsWith('rss-') || key.startsWith('featured-')
     );
     
     // Look through all cached article collections
