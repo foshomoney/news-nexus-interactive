@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Category, CategoryInfo } from '@/types/news';
 import { getCategoryInfo } from '@/services/newsService';
+import { Link } from 'react-router-dom';
 import { 
   Brain, 
   Cpu, 
@@ -46,9 +47,9 @@ const Header = ({ onCategoryChange, currentCategory, isLoading = false }: Header
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <h1 className="text-2xl font-bold bg-clip-text text-transparent tech-gradient flex items-center">
+              <Link to="/" className="text-2xl font-bold bg-clip-text text-transparent tech-gradient flex items-center">
                 TechNexus <Rss className="ml-2 h-4 w-4 text-primary" />
-              </h1>
+              </Link>
             </div>
             
             {/* Desktop Nav */}
@@ -86,18 +87,20 @@ const Header = ({ onCategoryChange, currentCategory, isLoading = false }: Header
                     <DropdownMenuItem onClick={() => onCategoryChange(category)}>
                       All {label} News
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => onCategoryChange(category)}>
                       Latest {label} Developments
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => onCategoryChange(category)}>
                       Top {label} Companies
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               ))}
               
-              <Button variant="ghost" size="icon">
-                <Search className="h-5 w-5" />
+              <Button variant="ghost" size="icon" asChild>
+                <Link to="/search">
+                  <Search className="h-5 w-5" />
+                </Link>
               </Button>
             </nav>
             
@@ -147,9 +150,11 @@ const Header = ({ onCategoryChange, currentCategory, isLoading = false }: Header
                 </Button>
               ))}
               
-              <Button variant="ghost" className="w-full justify-start">
-                <Search className="h-4 w-4 mr-2" />
-                Search
+              <Button variant="ghost" className="w-full justify-start" asChild>
+                <Link to="/search">
+                  <Search className="h-4 w-4 mr-2" />
+                  Search
+                </Link>
               </Button>
             </nav>
           )}
