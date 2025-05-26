@@ -6,6 +6,7 @@ import autoprefixer from 'autoprefixer';
 // import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 export default defineConfig({
+  base: '/news-nexus-interactive/', // Added for GitHub Pages deployment
   plugins: [
     // Optional: If Svelte is chosen, uncomment
     // svelte(),
