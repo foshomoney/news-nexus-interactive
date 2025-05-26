@@ -32,12 +32,15 @@ const App = () => {
     // initDatabase();
   }, []);
 
+  // Get the base name for routing (for GitHub Pages deployment)
+  const basename = process.env.NODE_ENV === 'production' ? '/news-nexus-interactive' : '';
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+        <BrowserRouter basename={basename}>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/article/:id" element={<ArticleDetail />} />
