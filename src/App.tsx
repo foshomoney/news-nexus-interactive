@@ -21,8 +21,13 @@ const queryClient = new QueryClient({
 });
 
 const App = () => {
+  console.log('App.tsx: App component rendering');
+  console.log('App.tsx: NODE_ENV:', process.env.NODE_ENV);
+  console.log('App.tsx: Current pathname:', window.location.pathname);
+  
   // Test database connection on app load
   useEffect(() => {
+    console.log('App.tsx: useEffect running');
     const initDatabase = async () => {
       // Test the database connection with default values
       await testDatabaseConnection();
@@ -34,6 +39,7 @@ const App = () => {
 
   // Get the base name for routing (for GitHub Pages deployment)
   const basename = process.env.NODE_ENV === 'production' ? '/news-nexus-interactive' : '';
+  console.log('App.tsx: Using basename:', basename);
 
   return (
     <QueryClientProvider client={queryClient}>

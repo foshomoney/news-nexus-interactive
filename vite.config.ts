@@ -7,6 +7,11 @@ import { componentTagger } from "lovable-tagger";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   base: process.env.NODE_ENV === 'production' ? '/news-nexus-interactive/' : '/',
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: mode === 'development'
+  },
   server: {
     host: "::",
     port: 8080,
